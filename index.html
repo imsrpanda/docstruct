@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+
+<style>
+    body {
+        font-family: sans-serif;
+    }
+
+    .highlightedText {
+        color: #1776bf !important;
+        font-weight: 800;
+        padding: 0px;
+        border-bottom: 1px solid;
+    }
+
+    .segment {
+        border: 1px solid #1776bf;
+        padding: 2px 12px;
+        background: #1776bf;
+        color: white;
+        border-radius: 12px;
+        font-size: 14px;
+    }
+
+    .child-seg {
+        margin-left: 32px;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        padding: 8px 0px;
+    }
+
+    .left-seg {
+        width: 36%;
+        font-size: 14px;
+    }
+
+    .right-seg {
+        width: 60%;
+        font-size: 14px;
+    }
+
+    .flex-display {
+        display: flex;
+    }
+
+    .seg-bottom {
+        margin-bottom: 12px;
+    }
+
+    i {
+        cursor: pointer;
+        vertical-align: middle;
+    }
+
+    .bold {
+        font-weight: 600;
+        margin-right: 4px;
+    }
+
+    .top-seg {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .nodisplay {
+        display: none;
+    }
+
+    .opaciter {
+        opacity: .3;
+    }
+
+    ::-webkit-scrollbar {
+        width: 5px;
+    }
+</style>
+<html lang="en">
+
+<head>
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+    <script>
+        var editor;
+        var decorationId;
+        var decId2;
+        var decId3;
+        require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.27.0/min/vs' } });
+
+        require(['vs/editor/editor.main'], function () {
+            monaco.languages.register({ id: "edi" });
+            var v = [
+                {
+                    "name": "ST",
+                    "AN": "Transaction Set Header",
+                    "desc": "\nTo indicate the start of a transaction set and to assign a control number\n\nSemantic Notes:\n1. The transaction set identifier (ST01) used by the translation routines of the interchange partners to select the appropriate transaction set definition (e.g., 810 selects the Invoice Transaction Set).\n            ",
+                    "children": [
+                        {
+                            "name": "ST01",
+                            "value": "850",
+                            "AN": "Transaction Set Identifier Code",
+                            "desc": "Code uniquely identifying a Transaction Set"
+                        },
+                        {
+                            "name": "ST02",
+                            "value": "0001",
+                            "AN": "Transaction Set Control Number",
+                            "desc": "Identifying control number that must be unique within the transaction set functional group assigned by the originator for a transaction set"
+                        }
+                    ]
+                },
+                {
+                    "name": "BEG",
+                    "AN": "Beginning Segment for Purchase Order",
+                    "desc": "\nTo indicate the beginning of the Purchase Order Transaction Set and transmit identifying numbers and dates\n\nSemantic Notes:\n1. BEG05 is the date assigned by the purchaser to purchase order.\n",
+                    "children": [
+                        {
+                            "name": "BEG02",
+                            "value": "BK",
+                            "AN": "Purchase Order Type Code",
+                            "desc": "Code specifying the type of Purchase Order"
+                        },
+                        {
+                            "name": "BEG03",
+                            "value": "99AKDF9DAL393",
+                            "AN": "Purchase Order Number",
+                            "desc": "Identifying number for Purchase Order assigned by the orderer/purchaser"
+                        },
+                        {
+                            "name": "BEG01",
+                            "value": "01",
+                            "AN": "Transaction Set Purpose Code",
+                            "desc": "Code identifying purpose of transaction set"
+                        },
+                        {
+                            "name": "BEG04",
+                            "value": "39483920193843",
+                            "AN": "Release Number",
+                            "desc": "Number identifying a release against a Purchase Order previously placed by the parties involved in the transaction"
+                        },
+                        {
+                            "name": "BEG05",
+                            "value": "20021106",
+                            "AN": "Date",
+                            "desc": "Date expressed as CCYYMMDD"
+                        },
+                        {
+                            "name": "BEG06",
+                            "value": "AN3920943",
+                            "AN": "Contract number",
+                            "desc": "Contract number"
+                        },
+                        {
+                            "name": "BEG07",
+                            "value": "AC",
+                            "AN": "Acknowledgment Type",
+                            "desc": "Code specifying the type of acknowledgment"
+                        },
+                        {
+                            "name": "BEG08",
+                            "value": "IBM",
+                            "AN": "Invoice Type Code",
+                            "desc": "Code defining the method by which invoices are to be processed"
+                        },
+                        {
+                            "name": "BEG09",
+                            "value": "02",
+                            "AN": "Contract Type Code",
+                            "desc": "Code identifying a contract type"
+                        },
+                        {
+                            "name": "BEG10",
+                            "value": "AE",
+                            "AN": "Purchase Category",
+                            "desc": "Code identifying the broad category of products or services being acquired"
+                        },
+                        {
+                            "name": "BEG11",
+                            "value": "02",
+                            "AN": "Security Level Code",
+                            "desc": "Code indicating the level of confidentiality assigned by the sender to the information following"
+                        },
+                        {
+                            "name": "BEG12",
+                            "value": "BA",
+                            "AN": "Transaction Type Code",
+                            "desc": "Code specifying the type of transaction"
+                        }
+                    ]
+                },
+                {
+                    "name": "CUR",
+                    "AN": "Currency",
+                    "desc": "\nTo specify the currency (dollars, pounds, francs, etc.) used in a transaction\n\nComments\n1. See Figures Appendix for examples detailing the use of the CUR segment.\n\nSyntax Notes:\n1. C0807 Conditional\n2. C0907 Conditional\n3. L101112 List Conditional\n4. C1110 Conditional\n5. C1210 Conditional\n6. L131415 List Conditional\n7. C1413 Conditional\n8. C1513 Conditional\n9. L161718 List Conditional\n10. C1716 Conditional\n11. C1816 Conditional\n12. L192021 List Conditional\n13. C2019 Conditional\n14. C2119 Conditional\n",
+                    "children": [
+                        {
+                            "name": "CUR01",
+                            "value": "AC",
+                            "AN": "Entity Identifier Code",
+                            "desc": "Code identifying an organizational entity, a physical location, property or an individual"
+                        },
+                        {
+                            "name": "CUR02",
+                            "value": "USD",
+                            "AN": "Currency Code",
+                            "desc": "Code (Standard ISO) for country in whose currency the charges are specified"
+                        },
+                        {
+                            "name": "CUR03",
+                            "value": "2939",
+                            "AN": "Exchange Rate",
+                            "desc": "Value to be used as a multiplier conversion factor to convert monetary value from one currency to another"
+                        },
+                        {
+                            "name": "CUR04",
+                            "value": "SE",
+                            "AN": "Entity Identifier Code",
+                            "desc": "Code identifying an organizational entity, a physical location, property or an individual"
+                        },
+                        {
+                            "name": "CUR05",
+                            "value": "USD",
+                            "AN": "Currency Code",
+                            "desc": "Code (Standard ISO) for country in whose currency the charges are specified"
+                        },
+                        {
+                            "name": "CUR06",
+                            "value": "IMF",
+                            "AN": "Currency Market/Exchange Code",
+                            "desc": "Code identifying the market upon which the currency exchange rate is based"
+                        },
+                        {
+                            "name": "CUR07",
+                            "value": "002",
+                            "AN": "Date/Time Qualifier",
+                            "desc": "Code specifying type of date or time, or both date and time"
+                        },
+                        {
+                            "name": "CUR08",
+                            "value": "20021106",
+                            "AN": "Date",
+                            "desc": "Date expressed as CCYYMMDD"
+                        },
+                        {
+                            "name": "CUR09",
+                            "value": "1615",
+                            "AN": "Time",
+                            "desc": "Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD = hundredths (00-99)"
+                        },
+                        {
+                            "name": "CUR10",
+                            "value": "021",
+                            "AN": "Date/Time Qualifier",
+                            "desc": "Code specifying type of date or time, or both date and time"
+                        },
+                        {
+                            "name": "CUR11",
+                            "value": "20021106",
+                            "AN": "Date",
+                            "desc": "Date expressed as CCYYMMDD"
+                        },
+                        {
+                            "name": "CUR12",
+                            "value": "0718",
+                            "AN": "Time",
+                            "desc": "Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD = hundredths (00-99)"
+                        },
+                        {
+                            "name": "CUR13",
+                            "value": "021",
+                            "AN": "Date/Time Qualifier",
+                            "desc": "Code specifying type of date or time, or both date and time"
+                        },
+                        {
+                            "name": "CUR14",
+                            "value": "20021106",
+                            "AN": "Date",
+                            "desc": "Date expressed as CCYYMMDD"
+                        },
+                        {
+                            "name": "CUR15",
+                            "value": "0718",
+                            "AN": "Time",
+                            "desc": "Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD = hundredths (00-99)"
+                        },
+                        {
+                            "name": "CUR16",
+                            "value": "038",
+                            "AN": "Date/Time Qualifier",
+                            "desc": "Code specifying type of date or time, or both date and time"
+                        },
+                        {
+                            "name": "CUR17",
+                            "value": "20021106",
+                            "AN": "Date",
+                            "desc": "Date expressed as CCYYMMDD"
+                        },
+                        {
+                            "name": "CUR18",
+                            "value": "1952",
+                            "AN": "Time",
+                            "desc": "Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD = hundredths (00-99)"
+                        },
+                        {
+                            "name": "CUR19",
+                            "value": "002",
+                            "AN": "Date/Time Qualifier",
+                            "desc": "Code specifying type of date or time, or both date and time"
+                        },
+                        {
+                            "name": "CUR20",
+                            "value": "20021106",
+                            "AN": "Date",
+                            "desc": "Date expressed as CCYYMMDD"
+                        },
+                        {
+                            "name": "CUR21",
+                            "value": "",
+                            "AN": "",
+                            "desc": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "REF",
+                    "AN": "Reference Identification",
+                    "desc": "\nTo specify identifying information\n\nSyntax Notes:\n1. R0203 Required\n\nSemantic Notes:\n1. REF04 contains data relating to the value cited in REF02.\n",
+                    "children": [
+                        {
+                            "name": "REF01",
+                            "value": "AB",
+                            "AN": "Reference Identification Qualifier",
+                            "desc": "Code qualifying the Reference Identification"
+                        },
+                        {
+                            "name": "REF02",
+                            "value": "3920394930203",
+                            "AN": "Reference Identification",
+                            "desc": "Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier"
+                        },
+                        {
+                            "name": "REF03",
+                            "value": "GENERAL",
+                            "AN": "Description",
+                            "desc": "A free-form description to clarify the related data elements and their content"
+                        },
+                        {
+                            "name": "REF03",
+                            "value": "PURPOSE",
+                            "AN": "Description",
+                            "desc": "A free-form description to clarify the related data elements and their content"
+                        },
+                        {
+                            "name": "C04001",
+                            "value": "BT",
+                            "AN": "Reference Identifier",
+                            "desc": "Code qualifying the Reference Identification"
+                        },
+                        {
+                            "name": "C04002",
+                            "value": "12389112300123890123768958473",
+                            "AN": "Reference Identification",
+                            "desc": "Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier"
+                        }
+
+                    ]
+                }
+            ];
+            var segments = v.map(x => x.name);
+            monaco.languages.registerHoverProvider("edi", {
+                provideHover: function (model, position) {
+                    var word = model.getWordAtPosition(position);
+                    var line = model.getLineContent(position.lineNumber);
+                    console.log(line);
+                    console.log(word);
+                    if (segments.indexOf(line.split('*')[0]) !== -1) {
+                        var currentsegment = segments[segments.indexOf(line.split('*')[0])];
+                        var childs = v.filter(x => x.name === currentsegment)[0].children;
+                        var words = childs.map(x => x.value);
+                        if (word) {
+                            if (word.word === currentsegment) {
+                                return {
+                                    range: new monaco.Range(position.lineNumber, word.startColumn, position.lineNumber, word.endColumn),
+                                    contents: [
+                                        { value: '**' + v.filter(x => x.name === currentsegment)[0].AN + '**' },
+                                        {
+                                            value:
+                                                v.filter(x => x.name === currentsegment)[0].desc,
+                                        },
+                                    ],
+                                };
+                            } else if (words.indexOf(word.word) !== -1) {
+                                return {
+                                    range: new monaco.Range(position.lineNumber, word.startColumn, position.lineNumber, word.endColumn),
+                                    contents: [
+                                        { value: '**' + v.filter(x => x.name === currentsegment)[0].children.filter(y => y.value === word.word)[0].AN + '**' },
+                                        {
+                                            value:
+                                                v.filter(x => x.name === currentsegment)[0].children.filter(y => y.value === word.word)[0].desc,
+                                        },
+                                    ],
+                                };
+                            }
+                        }
+                    }
+
+
+
+
+
+                },
+            });
+
+            // Create an instance of the editor
+            editor = monaco.editor.create(document.getElementById('editor'), {
+                value: 'ISA*00*          *00*          *01*123456789      *01*987654321      *021106*1003*U*00403*000000009*1*T*:!\nGS*PO*123890123*123891123*20021106*1003*7*T*004010!\nST*850*0001!\nBEG*01*BK*99AKDF9DAL393*39483920193843*20021106*AN3920943*AC*IBM*02*AE*02*BA!\nCUR*AC*USD*.2939*SE*USD*IMF*002*20021106*1615*021*20021106*0718*038*20021106*1952*002*20021106*1615*021*20021106*0718!\nREF*AB*3920394930203*GENERAL PURPOSE*BT:12389112300123890123768958473:CM:500:AB:3920394930203!\nPER*AC*ARTHUR JONES*TE*(614)555-1212*TE*(614)555-1212*TE*(614)555-1212*ADDL CONTACT DESC!\nTAX*229438383*IP*02535*IP*36201*IP*36299*IP*02535*IP*36201*A*C!\nFOB*CA*IP*GENERAL PURPOSE*01*CAF*IP*GENERAL PURPOSE*BY*GENERAL PURPOSE!\nCTP*AG*ALT*100.00*100*DP:1921332015:10.938:HB:1150107445:.29384:QD:1713457923:.05029:DP:376661237:10.938:HB:1694553930:.29384*CSD*.05029*100.00*PD*MILES*10!\nPAM*01*.500*QD:2087574894:10.938:DP:504012493:.29384:HB:2036446825:.05029:QD:1806034522:10.938:DP:2005205238:.29384*AC*50.00*DA*038*20021106*1952*002*20021106*1615*1*10.25*N!\nCSH*B*A*10000*ACCT0001*20021106*AX*DL*B0*20.00*1!\nTC2*A*SBEANS!\nSAC*A*A010*AA*1*50000*1*.25*5000*HB*123.45*100*01*12389112300123890123768958473*PROMO292910*GENERAL PURPOSE*EN!\nCUR*BK*USD*1.259*AC*USD*LNF*021*20021106*0718*038*20021106*1952*002*20021106*1615*021*20021106*0718*038*20021106*1952!\nITD*01*1*.0035*20021106*60*20021106*10*1000*20021106*10000*.25*GENERAL PURPOSE*1*C*50.75!\nDIS*AMT*CA*10*DOF*1000*4200!\nINC*03*QD:1043312720:.05029:DP:2074331569:10.938:HB:719342793:.29384:QD:1368581410:.05029:DP:1011311763:10.938*.500*123.45*665.75!\nDTM*002*20021106*1615*CT*CM*DATE TIME PERIOD!\nLDT*AA*100*HR*20021106!\nLIN*AAA849*AB*ASSEMBLY*BL*BRAND OR LABEL*ON*CUST12345*AB*ASSEMBLY*BL*BRAND OR LABEL*ON*CUST12345*AB*ASSEMBLY*BL*BRAND OR LABEL*ON*CUST12345*AB*ASSEMBLY*BL*BRAND OR LABEL*ON*CUST12345*AB*ASSEMBLY*BL*BRAND OR LABEL*ON*CUST12345!\nSI*NR*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY!\nPID*F*BC*AX*UNSCENTED*GENERAL PURPOSE*BS*SUBQUALIFIER*N*EN!\nMEA*AA*A**HB:1497563753:.29384:QD:486486763:.05029:DP:403365426:10.938:HB:1145758670:.29384:QD:834892948:.05029*11.00*200*01*01*OS*BM!\nPWK*AA*AE*1*SE*1*9012345918341*GENERAL PURPOSE*1:2:1:2:1*AR!\nPKG*F*10*AA*MARKED*GENERAL PURPOSE*01!\nTD1*BAG07*1234567*B*SBEANS*ONE OUNCE WIDGETS*A*12345678*DP*40*HB!\nTD5*A*8*111222333*A*ROUTING INFORMATION*AB*IP*36299*BS*AA*4230*AC*NM*ON*US!\nTD3**AAAA*EQ48495*T*50*QD*N*01*30394938483234*CART!\nTD4*BW*4*AC*GENERAL PURPOSE*N!\nMAN*GM*III789384839*MKD29393812910*L*3939348930IDKDLSIA*III789384839!\nPCT*1*10.25!\nCTB*AA*GENERAL PURPOSE*28*.500*FL*100000!\nTXI*ST*100.00*20.00*CD*TAX JRSDCT*1*A*100.00*33939483921*888394!\nAMT*NP*50.00*C!\nREF*BT*500*GENERAL PURPOSE*CM:3920394930203:AB:12389112300123890123768958473:BT:500!\nDTM*021*20021106*0718*MT*MM*DATE TIME PERIOD!\nPCT*1*50.75!\nFA1*NR*A020*C!\nFA2*01*FINANCIAL INFORMATION CODE!\nN9*CM*3920394930203*FREE FORM DESCRIPTION*20021106*1952*PT*AB:12389112300123890123768958473:BT:500:CM:3920394930203!\nDTM*038*20021106*1615*CT*YM*DATE TIME PERIOD!\nMSG*FREE FORM MESSAGE TEXT*DS*333333477!\nN1*BK*MAGGIE MCGILLICUTTY*16*43202*11*AC!\nN2*BEVERLY SIMPSON*ARTHUR JONES!\nN3*PO BOX 123*157 WEST 57TH STREET!\nN4*CINCINNATI*OH*43017*US*IP*02535!\nNX2*01*103 NORTH MAIN STREET*95391!\nREF*AB*12389112300123890123768958473*GENERAL PURPOSE*BT:500:CM:3920394930203:AB:12389112300123890123768958473!\nPER*CR*MAGGIE MCGILLICUTTY*TE*(614)555-1212*TE*(614)555-1212*TE*(614)555-1212*ADDL CONTACT DESC!\nSI*AX*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL!\nFOB*PA*IP*GENERAL PURPOSE*02*CIF*IP*GENERAL PURPOSE*FE*GENERAL PURPOSE!\nTD1*BBL94*50*C*SBEANS*FIFTEEN POUND WIDGETS*B*40*DP*400*HB!\nTD5*B*1*9012345918341*U*ROUTING INFORMATION*CO*IP*36201*SB*HO*7450*AC*NM*ON*US!\nTD3**AKEI*EQ12349*A*12345678*QD*R*03*394899111098456*CART!\nTD4*SM*A*PS*GENERAL PURPOSE*N!\nPKG*F*37*AA*MARKED*GENERAL PURPOSE*03!\nLM*NR*SUBQUALIFIER!\nLQ*2*INDUSTRY CODE!\nSPI*03*BT*500*TITLE OF THE DATA ENTITY*ENTITY PURPOSE*A*10*BL*09*AX*SUBQUALIFIER*293212*I*AA*0001!\nREF*CM*3920394930203*GENERAL PURPOSE*AB:12389112300123890123768958473:BT:500:CM:3920394930203!\nDTM*002*20021106*0718*MT*CM*DATE TIME PERIOD!\nMSG*FREE FORM MESSAGE TEXT*LC*913267642!\nN1*SE*BEVERLY SIMPSON*8*111222333*13*BK!\nN2*ARTHUR JONES*MAGGIE MCGILLICUTTY!\nN3*PO BOX 123*157 WEST 57TH STREET!\nN4*COLUMBUS*OH*43017*US*IP*36299!\nREF*AB*12389112300123890123768958473*GENERAL PURPOSE*BT:500:CM:3920394930203:AB:12389112300123890123768958473!\nG61*EX*BEVERLY SIMPSON*TE*(614)555-1212*ADDL CONTACT DESC!\nMSG*FREE FORM MESSAGE TEXT*NP*428040430!\nCB1*07*A!\nREF*BT*500*GENERAL PURPOSE*CM:3920394930203:AB:12389112300123890123768958473:BT:500!\nDTM*021*20021106*1952*PT*MM*DATE TIME PERIOD!\nLDT*AF*123.45*WK*20021106!\nMSG*FREE FORM MESSAGE TEXT*DS*222685568!\nADV*AA*SR*100.00*150.25*CT9392*SR*119291.223!\nDTM*038*20021106*1615*CT*YM*DATE TIME PERIOD!\nMTX*ALL*MESSAGE TEXT*MESSAGE TEXT*LC!\nPO1*3ALDKF*100*DP*123.90*LE*AB*CUST12345*BL*ASSEMBLY*ON*BRAND OR LABEL*AB*CUST12345*BL*ASSEMBLY*ON*BRAND OR LABEL*AB*CUST12345*BL*ASSEMBLY*ON*BRAND OR LABEL*AB*CUST12345!\nLIN*AAA849*BL*ASSEMBLY*ON*BRAND OR LABEL*AB*CUST12345*BL*ASSEMBLY*ON*BRAND OR LABEL*AB*CUST12345*BL*ASSEMBLY*ON*BRAND OR LABEL*AB*CUST12345*BL*ASSEMBLY*ON*BRAND OR LABEL*AB*CUST12345*BL*ASSEMBLY*ON*BRAND OR LABEL*AB*CUST12345!\nSI*NR*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY!\nCUR*AC*USD*4.5948*SE*USD*NYC*002*20021106*0718*021*20021106*1952*038*20021106*1615*002*20021106*0718*021*20021106*1952!\nCN1*04*665.75*.10*3920394930203*.25*VERSION IDENTIFIER!\nPO3*AQ*20021106*MNR*5400.50*RD*100*HB*GENERAL PURPOSE!\nCTP*BR*SLP*100.00*.500*QD:763728649:10.938:DP:482004563:.29384:HB:1174837118:.05029:QD:603183311:10.938:DP:119491750:.29384*CSR*.05029*100.00*PD*MILES*13!\nCUR*BK*USD*.2939*AC*USD*IMF*038*20021106*1615*002*20021106*0718*021*20021106*1952*038*20021106*1615*002*20021106*0718!\nPAM*43*123.45*HB:1057556902:10.938:QD:1233650909:.29384:DP:1744305114:.05029:HB:1616080736:10.938:QD:1813462114:.29384*AC*50.00*DA*021*20021106*1952*038*20021106*1615*1*10.25*N!\nMEA*CO*BE**DP:586633060:.05029:HB:1164431520:10.938:QD:97231909:.29384:DP:1224400631:.05029:HB:879630138:10.938*50*201.20*03*03*TP*BM!\nPID*F*10*AX*UNSCENTED*GENERAL PURPOSE*BS*SUBQUALIFIER*N*EN!\nMEA*BA*CA**QD:302384155:.29384:DP:88883711:.05029:HB:720220966:10.938:QD:1128683143:.29384:DP:120864942:.05029*11.00*200*07*06*OS*BM!\nPWK*DR*BM*2*SE*16*43202*GENERAL PURPOSE*2:1:2:1:2*AR!\nPO4*24*12*HB*PLT37*T*100*QD*100*DP*45*50*123456*HB*21*TP*888394*3ALDKF*87052277!\nREF*CM*12389112300123890123768958473*GENERAL PURPOSE*AB:500:BT:3920394930203:CM:12389112300123890123768958473!\nPER*AC*ARTHUR JONES*TE*(614)555-1212*TE*(614)555-1212*TE*(614)555-1212*ADDL CONTACT DESC!\nSAC*N*A030*AA*ABC60*10000*3*.15*450000*QD*100*.500*01*500*PR939201*GENERAL PURPOSE*EN!\nCUR*BK*USD*1.259*AC*USD*LNF*002*20021106*0718*021*20021106*1952*038*20021106*1615*002*20021106*0718*021*20021106*1952!\nCTP*GV*ALT*123.90*123.45*DP:938145636:10.938:HB:38250254:.29384:QD:125667739:.05029:DP:1484884746:10.938:HB:1687775296:.29384*ILP*.05029*665.75*LE*MILES*14!\nIT8*F*D*50000*182389281*20021106*NR*B2*BL*BRAND OR LABEL*ON*CUST12345*AB*ASSEMBLY*BL*BRAND OR LABEL*ON*CUST12345*AB*ASSEMBLY*BL*BRAND OR LABEL*ON*CUST12345*AB*ASSEMBLY*BL*BRAND OR LABEL!\nCSH*W*E*100000*20934801*20021106*AX*D1*X*20.00*1!\nITD*12*8*.0010*20021106*90*20021106*30*10000*20021106*50000*.10*GENERAL PURPOSE*15*E*50.75!\nDIS*CSH*PC*.0434*DAT*50*1000!\nINC*01*QD:441164494:10.938:DP:1624410820:.29384:HB:701840743:.05029:QD:1384215669:10.938:DP:1856727185:.29384*100*.500*100.00!\nTAX*222948392034*IP*02535*IP*36201*IP*36299*IP*02535*IP*36201*2*C!\nFOB*PB*IP*GENERAL PURPOSE*ZZ*FAS*IP*GENERAL PURPOSE*PP*GENERAL PURPOSE!\nSDQ*HB*1*9012345918341*123.45*111222333*100*43202*.500*9012345918341*123.45*111222333*100*43202*.500*9012345918341*123.45*111222333*100*43202*.500*9012345918341*123.45*36299!\nIT3*100*QD*IC*100*GU!\nDTM*038*20021106*1615*MT*CM*DATE TIME PERIOD!\nTC2*A*SBEANS!\nTD1*BAG07*100*B*SBEANS*CUBIC YARD WIDGETS IN VARIOUS*B*50*DP*4000*HB!\nTD5*I*8*111222333*M*ROUTING INFORMATION*AB*IP*02535*SS*WD*9500*AC*NM*ON*US!\nTD3**IIBL*EQ8373A*A*40*QD*S*04*39483920294*CART!\nTD4*TSC*U*SN*GENERAL PURPOSE*N!\nPCT*1*10.25!\nMAN*SM*MKD29393812910*3939348930IDKDLSIA*GM*III789384839*MKD29393812910!\nMSG*FREE FORM MESSAGE TEXT*NP*307330620!\nSPI*02*AB*3920394930203*TITLE OF THE DATA ENTITY*ENTITY PURPOSE*D*12*AA*03*AA*SUBQUALIFIER*100*R*AA*0002!\nTXI*FT*50.00*20.00*VE*TAX JRSDCT*A*D*450.00*229438383*AAA849!\nCTB*AA*GENERAL PURPOSE*01*100*FL*10000!\nQTY*28**DP:1171990518:.05029:HB:1511342067:10.938:QD:186180259:.29384:DP:1382846985:.05029:HB:762623368:10.938*FREE FORM MESSAGE!\nSI*NR*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345!\nSCH*123.45*QD*SE*MAGGIE MCGILLICUTTY*002*20021106*0718*021*20021106*1952*39349382*888394!\nTD1*BBL94*1234567*C*SBEANS*ONE OUNCE WIDGETS*T*12345678*DP*40*HB!\nTD5*A*16*43202*A*ROUTING INFORMATION*CO*IP*36201*BS*AA*4230*AC*NM*ON*US!\nTD3**AAAA*EQ48495*B*50*QD*N*01*30394938483234*CART!\nTD4*BW*4*AC*GENERAL PURPOSE*N!\nREF*BT*12389112300123890123768958473*GENERAL PURPOSE*CM:500:AB:3920394930203:BT:12389112300123890123768958473!\nPKG*F*63*AX*MARKED*GENERAL PURPOSE*05!\nMEA*AA*A**DP:1452656227:.29384:HB:1574991480:.05029:QD:210965560:10.938:DP:318185863:.29384:HB:1554681601:.05029*100.00*150.25*01*01*BS*BM!\nLS*LDT!\nLDT*AS*100*HR*20021106!\nQTY*43**QD:1532579956:10.938:DP:2058071988:.29384:HB:261330529:.05029:QD:1994889479:10.938:DP:538944016:.29384*FREE FORM MESSAGE!\nMSG*FREE FORM MESSAGE TEXT*DS*800298827!\nREF*CM*500*GENERAL PURPOSE*AB:3920394930203:BT:12389112300123890123768958473:CM:500!\nLM*AA*SUBQUALIFIER!\nLQ*7*INDUSTRY CODE!\nLE*LDT!\nN9*AB*3920394930203*FREE FORM DESCRIPTION*20021106*1615*PT*BT:12389112300123890123768958473:CM:500:AB:3920394930203!\nDTM*038*20021106*0718*CT*MM*DATE TIME PERIOD!\nMEA*CO*BE**HB:445858929:.05029:QD:1874864027:10.938:DP:1093594142:.29384:HB:57651937:.05029:QD:55743849:10.938*50*201.20*03*03*OS*BM!\nMSG*FREE FORM MESSAGE TEXT*LC*287427012!\nN1*BK*BEVERLY SIMPSON*1*9012345918341*19*AC!\nN2*ARTHUR JONES*MAGGIE MCGILLICUTTY!\nN3*103 NORTH MAIN STREET*PO BOX 123!\nN4*CLEVELAND*OH*43017*US*IP*36299!\nQTY*01**DP:213960454:.29384:HB:1314723674:.05029:QD:1808412353:10.938:DP:2061954347:.29384:HB:1400936395:.05029*FREE FORM MESSAGE!\nNX2*02*157 WEST 57TH STREET*23442!\nREF*BT*12389112300123890123768958473*GENERAL PURPOSE*CM:500:AB:3920394930203:BT:12389112300123890123768958473!\nPER*CR*BEVERLY SIMPSON*TE*(614)555-1212*TE*(614)555-1212*TE*(614)555-1212*ADDL CONTACT DESC!\nSI*NR*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY!\nDTM*002*20021106*1952*MT*YM*DATE TIME PERIOD!\nFOB*CA*IP*GENERAL PURPOSE*01*CAF*IP*GENERAL PURPOSE*BY*GENERAL PURPOSE!\nSCH*100*QD*SE*ARTHUR JONES*021*20021106*1615*038*20021106*0718*3948329*3ALDKF!\nTD1*PLT37*50*A*SBEANS*FIFTEEN POUND WIDGETS*A*40*DP*400*HB!\nTD5*B*8*111222333*U*ROUTING INFORMATION*IC*IP*02535*SB*HO*7450*AC*NM*ON*US!\nTD3**AKEI*EQ12349*T*12345678*QD*R*03*394899111098456*CART!\nTD4*SM*A*PS*GENERAL PURPOSE*N!\nPKG*F*10*AX*MARKED*GENERAL PURPOSE*01!\nLDT*AA*.500*WK*20021106!\nMAN*L*3939348930IDKDLSIA*III789384839*SM*MKD29393812910*3939348930IDKDLSIA!\nQTY*28**DP:107835099:10.938:HB:849286329:.29384:QD:1849348893:.05029:DP:695483359:10.938:HB:629473148:.29384*FREE FORM MESSAGE!\nMSG*FREE FORM MESSAGE TEXT*NP*694265296!\nREF*CM*500*GENERAL PURPOSE*AB:3920394930203:BT:12389112300123890123768958473:CM:500!\nSLN*AAA849*888394*I*100*QD:749998917:.05029:DP:244780022:10.938:HB:824031710:.29384:QD:1236363336:.05029:DP:1197654838:10.938*5400.50*RD*A*ON*BRAND OR LABEL*AB*CUST12345*BL*ASSEMBLY*ON*BRAND OR LABEL*AB*CUST12345*BL*ASSEMBLY*ON*BRAND OR LABEL*AB*CUST12345*BL*ASSEMBLY*ON*BRAND OR LABEL!\nMSG*FREE FORM MESSAGE TEXT*DS*144593363!\nSI*AA*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345!\nPID*F*60*NR*UNSCENTED*GENERAL PURPOSE*TP*SUBQUALIFIER*N*EN!\nPO3*QO*20021106*MNR*100.00*PD*.500*HB*GENERAL PURPOSE!\nTC2*B*SBEANS!\nADV*AX*SR*11.00*200*ALUM*SR*1920.192!\nDTM*002*20021106*1952*PT*CM*DATE TIME PERIOD!\nCTP*AG*SLP*123.90*123.45*QD:40616265:.29384:DP:731992509:.05029:HB:722716984:10.938:QD:337242845:.29384:DP:423258543:.05029*CSD*10.938*665.75*LE*MILES*10!\nPAM*43*100*HB:423747901:.29384:QD:873962995:.05029:DP:1079719588:10.938:HB:1034650005:.29384:QD:2027519081:.05029*NP*100.00*DA*021*20021106*1615*038*20021106*0718*1*50.75*N!\nPO4*120*24*DP*BAG07*B*400*HB*24*QD*30*100*10*DP*12*BS*3ALDKF*AAA849*84160235!\nTAX*33939483921*IP*36201*IP*36299*IP*02535*IP*36201*IP*36299*1*C!\nN9*AB*3920394930203*FREE FORM DESCRIPTION*20021106*1952*CT*BT:12389112300123890123768958473:CM:500:AB:3920394930203!\nDTM*002*20021106*1615*MT*MM*DATE TIME PERIOD!\nMSG*FREE FORM MESSAGE TEXT*LC*465385431!\nSAC*A*A010*AA*AABBCCDDXX*50000*7*.25*10000*HB*.500*123.45*01*12389112300123890123768958473*19029342ALSL*GENERAL PURPOSE*EN!\nCUR*BK*USD*4.5948*AC*USD*NYC*021*20021106*0718*038*20021106*1952*002*20021106*1615*021*20021106*0718*038*20021106*1952!\nCTP*BR*ALT*5400.50*100*QD:834053731:10.938:DP:1114171945:.29384:HB:327649952:.05029:QD:806210430:10.938:DP:1709173996:.29384*CSR*.05029*50.00*RD*MILES*13!\nQTY*01**HB:1064006728:10.938:QD:704896666:.29384:DP:514462627:.05029:HB:45422255:10.938:QD:554615734:.29384*FREE FORM MESSAGE!\nSI*NR*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY!\nN1*SE*MAGGIE MCGILLICUTTY*16*43202*11*BK!\nN2*BEVERLY SIMPSON*ARTHUR JONES!\nN3*103 NORTH MAIN STREET*PO BOX 123!\nN4*CINCINNATI*OH*43017*US*IP*02535!\nNX2*07*157 WEST 57TH STREET*54178!\nREF*BT*500*GENERAL PURPOSE*CM:3920394930203:AB:12389112300123890123768958473:BT:500!\nPER*EX*MAGGIE MCGILLICUTTY*TE*(614)555-1212*TE*(614)555-1212*TE*(614)555-1212*ADDL CONTACT DESC!\nSI*AX*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL*SR*CUST12345*SR*ASSEMBLY*SR*BRAND OR LABEL!\nAMT*AC*665.75*D!\nREF*CM*3920394930203*GENERAL PURPOSE*AB:12389112300123890123768958473:BT:500:CM:3920394930203!\nPCT*1*10.25!\nLM*AA*SUBQUALIFIER!\nLQ*9*INDUSTRY CODE!\nCTT*10*855*50*DP*4000*HB*GENERAL PURPOSE!\nAMT*FL*100.00*C!\nSE*196*0001!\nGE*1*7!\nIEA*1*000000009!',
+                language: 'edi',
+                theme: 'vs', // You can change the theme here,
+                wordWrap: 'on'
+            });
+
+
+
+
+        });
+
+        function onHover(sl, s, el, e) {
+
+            editor.deltaDecorations([decorationId], []);
+            var selectionRange = new monaco.Range(sl, s, el, e);
+            // editor.setSelection(selectionRange);
+
+            var decoration = {
+                range: selectionRange,
+                options: {
+                    isWholeLine: false, // Set to true if you want to highlight the whole line
+                    inlineClassName: 'highlightedText', // CSS class for styling the highlighted text
+                }
+            };
+
+            var de2 = {
+                range: new monaco.Range(1, 1, el, s - 1),
+                options: {
+                    isWholeLine: false, // Set to true if you want to highlight the whole line
+                    inlineClassName: 'opaciter', // CSS class for styling the highlighted text
+                }
+            }
+
+            var de3 = {
+                range: new monaco.Range(el, e + 1, 200, 14607),
+                options: {
+                    isWholeLine: false, // Set to true if you want to highlight the whole line
+                    inlineClassName: 'opaciter', // CSS class for styling the highlighted text
+                }
+            }
+
+            decorationId = editor.deltaDecorations([], [decoration]);
+            decId2 = editor.deltaDecorations([], [de2]);
+            decId3 = editor.deltaDecorations([], [de3]);
+
+        }
+
+        function clearAll() {
+            editor.deltaDecorations([decorationId, decId2, decId3], []);
+        }
+
+        function setID(id) {
+            if (document.getElementById(id).classList.contains('nodisplay')) {
+                document.getElementById(id).classList.remove('nodisplay');
+            } else {
+                document.getElementById(id).classList.add('nodisplay');
+            }
+        }
+
+
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monaco Editor Example</title>
+    <!-- Include Monaco Editor script -->
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.27.0/min/vs/loader.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+
+<body>
+    <!-- Container for the editor -->
+    <div style="display: flex;">
+        <div style="width: 50%;height: 500px;overflow: scroll;">
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(1,1,1,106)" onmouseout="clearAll()">
+                    <i class="material-icons" onclick="setID('s1')">expand_more</i>
+                    <span class="segment">ISA</span>
+                    <span class="top-seg">Interchange Control Header</span>
+                </div>
+                <div id="s1">
+                    <div class="child-seg flex-display" onmouseover="onHover(1,5,1,7)" onmouseout="clearAll()">
+                        <div class="left-seg">Authorization Information Qualifier</div>
+                        <div class="right-seg">
+                            <span class="bold">00</span>
+                            <span>No Authorization Information Present (No Meaningful Information in I02)</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,8,1,18)" onmouseout="clearAll()">
+
+                        <div class="left-seg">Authorization Information</div>
+                        <div class="right-seg"></div>
+
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,19,1,21)" onmouseout="clearAll()">
+                        <div class="left-seg">Security Information Qualifier</div>
+                        <div class="right-seg">
+                            <span class="bold">00</span>
+                            <span>No Security Information Present (No Meaningful Information in I04)</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,22,1,32)" onmouseout="clearAll()">
+
+                        <div class="left-seg">Security Information</div>
+                        <div class="right-seg"></div>
+
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,33,1,35)" onmouseout="clearAll()">
+                        <div class="left-seg">Interchange ID Qualifier</div>
+                        <div class="right-seg">
+                            <span class="bold">01</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,36,1,51)" onmouseout="clearAll()">
+                        <div class="left-seg">Interchange Sender ID</div>
+                        <div class="right-seg">
+                            <span class="bold">123456789</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,52,1,54)" onmouseout="clearAll()">
+                        <div class="left-seg">Interchange ID Qualifier</div>
+                        <div class="right-seg">
+                            <span class="bold">01</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,55,1,70)" onmouseout="clearAll()">
+                        <div class="left-seg">Interchange Sender ID</div>
+                        <div class="right-seg">
+                            <span class="bold">987654321</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,71,1,77)" onmouseout="clearAll()">
+                        <div class="left-seg">Interchange Date</div>
+                        <div class="right-seg">
+                            <span class="bold">2002-11-06</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,78,1,82)" onmouseout="clearAll()">
+                        <div class="left-seg">Interchange Time</div>
+                        <div class="right-seg">
+                            <span class="bold">10:03</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,83,1,84)" onmouseout="clearAll()">
+                        <div class="left-seg">Repeatation separator</div>
+                        <div class="right-seg">
+                            <span class="bold">U</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,85,1,90)" onmouseout="clearAll()">
+                        <div class="left-seg">Interchange Control Version Number Code</div>
+                        <div class="right-seg">
+                            <span class="bold">00403</span>
+                            <span></span>
+                        </div>
+                    </div>
+
+                    <div class="child-seg flex-display" onmouseover="onHover(1,91,1,100)" onmouseout="clearAll()">
+                        <div class="left-seg">Interchange Control Number</div>
+                        <div class="right-seg">
+                            <span class="bold">000000009</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,101,1,102)" onmouseout="clearAll()">
+                        <div class="left-seg">Acknowledgment Requested Code</div>
+                        <div class="right-seg">
+                            <span class="bold">1</span>
+                            <span>Acknowledgment Requested</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,103,1,104)" onmouseout="clearAll()">
+                        <div class="left-seg">Interchange Usage Indicator Code</div>
+                        <div class="right-seg">
+                            <span class="bold">T</span>
+                            <span>Test data</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(1,105,1,106)" onmouseout="clearAll()">
+                        <div class="left-seg">Component Element Separator</div>
+                        <div class="right-seg">
+                            <span class="bold">:</span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(2,1,2,51)" onmouseout="clearAll()">
+                    <i class="material-icons" onclick="setID('s2')">expand_more</i>
+                    <span class="segment">GS</span>
+                    <span class="top-seg">Functional Group Header</span>
+                </div>
+                <div id="s2">
+                    <div class="child-seg flex-display" onmouseover="onHover(2,4,2,6)" onmouseout="clearAll()">
+                        <div class="left-seg">Functional Identifier Code</div>
+                        <div class="right-seg">
+                            <span class="bold">PO</span>
+                            <span>Purchase order 850</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,6,2,16)" onmouseout="clearAll()">
+
+                        <div class="left-seg">Application Sender's Code</div>
+                        <div class="right-seg"><span class="bold">123890123</span></div>
+
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,17,2,26)" onmouseout="clearAll()">
+                        <div class="left-seg">Application Receiver's Code</div>
+                        <div class="right-seg">
+                            <span class="bold">123891123</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,27,2,35)" onmouseout="clearAll()">
+
+                        <div class="left-seg">Date</div>
+                        <div class="right-seg">2002-11-06</div>
+
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,36,2,40)" onmouseout="clearAll()">
+                        <div class="left-seg">Time</div>
+                        <div class="right-seg">
+                            <span class="bold">10:03</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,41,2,42)" onmouseout="clearAll()">
+                        <div class="left-seg">Group Control Number</div>
+                        <div class="right-seg">
+                            <span class="bold">7</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,43,2,44)" onmouseout="clearAll()">
+                        <div class="left-seg">Responsible Agency Code</div>
+                        <div class="right-seg">
+                            <span class="bold">T</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,45,2,51)" onmouseout="clearAll()">
+                        <div class="left-seg">Version / Release / Industry Identifier Code</div>
+                        <div class="right-seg">
+                            <span class="bold">004010</span>
+                            <span></span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(3,1,3,12)" onmouseout="clearAll()">
+                    <i class="material-icons" onclick="setID('s3')">expand_more</i>
+                    <span class="segment">ST</span>
+                    <span class="top-seg">Transaction Set Header</span>
+                </div>
+                <div id="s3">
+                    <div class="child-seg flex-display" onmouseover="onHover(3,4,3,7)" onmouseout="clearAll()">
+                        <div class="left-seg">Transaction Set Identifier Code</div>
+                        <div class="right-seg">
+                            <span class="bold">850</span>
+                            <span>Purchase Order</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(3,8,3,12)" onmouseout="clearAll()">
+
+                        <div class="left-seg">Transaction Set Control Number</div>
+                        <div class="right-seg">
+                            <span class="bold">0001</span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(4,1,4,77)" onmouseout="clearAll()">
+                    <i class="material-icons" onclick="setID('s4')">expand_more</i>
+                    <span class="segment">BEG</span>
+                    <span class="top-seg">Beginning Segment for Purchase Order</span>
+                </div>
+                <div id="s4">
+                    <div class="child-seg flex-display" onmouseover="onHover(4,5,4,7)" onmouseout="clearAll()">
+                        <div class="left-seg">Transaction Set Purpose Code</div>
+                        <div class="right-seg">
+                            <span class="bold">01</span>
+                            <span>Code identifying purpose of transaction set</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(4,8,4,10)" onmouseout="clearAll()">
+
+                        <div class="left-seg">Purchase Order Type Code</div>
+                        <div class="right-seg">
+                            <span class="bold">BK</span>
+                            <span>Code specifying the type of Purchase Order</span>
+                        </div>
+
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(4,11,4,24)" onmouseout="clearAll()">
+                        <div class="left-seg">Purchase Order Number</div>
+                        <div class="right-seg">
+                            <span class="bold">99AKDF9DAL393</span>
+                            <span>Identifying number for Purchase Order assigned by the orderer/purchaser</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(4,25,4,39)" onmouseout="clearAll()">
+
+                        <div class="left-seg">Release Number</div>
+                        <div class="right-seg">
+                            <span class="bold">39483920193843</span>
+                            <span>Number identifying a release against a Purchase Order previously placed by the parties
+                                involved in the transaction</span>
+                        </div>
+
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(4,40,4,48)" onmouseout="clearAll()">
+                        <div class="left-seg">Date</div>
+                        <div class="right-seg">
+                            <span class="bold">2002-11-06</span>
+                            <span>Date expressed as CCYYMMDD</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(4,49,4,58)" onmouseout="clearAll()">
+                        <div class="left-seg">Contract Number</div>
+                        <div class="right-seg">
+                            <span class="bold">AN3920943</span>
+                            <span>Contract Number</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(4,59,4,61)" onmouseout="clearAll()">
+                        <div class="left-seg">Acknowledgment Type</div>
+                        <div class="right-seg">
+                            <span class="bold">AC</span>
+                            <span>Code specifying the type of acknowledgment</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(4,62,4,65)" onmouseout="clearAll()">
+                        <div class="left-seg">Invoice Type Code</div>
+                        <div class="right-seg">
+                            <span class="bold">IBM</span>
+                            <span>Code defining the method by which invoices are to be processed</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(4,66,4,68)" onmouseout="clearAll()">
+                        <div class="left-seg">Contract Type Code</div>
+                        <div class="right-seg">
+                            <span class="bold">02</span>
+                            <span>Code identifying a contract type</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(4,69,4,71)" onmouseout="clearAll()">
+                        <div class="left-seg">Purchase Category</div>
+                        <div class="right-seg">
+                            <span class="bold">AE</span>
+                            <span>Code identifying the broad category of products or services being acquired</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(4,72,4,74)" onmouseout="clearAll()">
+                        <div class="left-seg">Security Level Code</div>
+                        <div class="right-seg">
+                            <span class="bold">02</span>
+                            <span>Code indicating the level of confidentiality assigned by the sender to the information
+                                following</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(4,75,4,77)" onmouseout="clearAll()">
+                        <div class="left-seg">Transaction Type Code</div>
+                        <div class="right-seg">
+                            <span class="bold">BA</span>
+                            <span>Code specifying the type of transaction</span>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(5,1,5,118)" onmouseout="clearAll()">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">CUR</span>
+                    <span class="top-seg">Currency</span>
+                </div>
+                <div id="s5">
+                    <div class="child-seg flex-display" onmouseover="onHover(5,5,5,7)" onmouseout="clearAll()">
+                        <div class="left-seg">Entity Identifier Code</div>
+                        <div class="right-seg">
+                            <span class="bold">AC</span>
+                            <span>Code identifying an organizational entity, a physical location, property or an
+                                individual</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,8,5,11)" onmouseout="clearAll()">
+
+                        <div class="left-seg">Currency Code</div>
+                        <div class="right-seg">
+                            <span class="bold">USD</span>
+                            <span>Code (Standard ISO) for country in whose currency the charges are specified</span>
+                        </div>
+
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,12,5,17)" onmouseout="clearAll()">
+                        <div class="left-seg">Exchange Rate</div>
+                        <div class="right-seg">
+                            <span class="bold">.2939</span>
+                            <span>Value to be used as a multiplier conversion factor to convert monetary value from one
+                                currency to another</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,18,5,20)" onmouseout="clearAll()">
+
+                        <div class="left-seg">Entity Identifier Code</div>
+                        <div class="right-seg">
+                            <span class="bold">SE</span>
+                            <span>Code identifying an organizational entity, a physical location, property or an
+                                individual</span>
+                        </div>
+
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,21,5,24)" onmouseout="clearAll()">
+                        <div class="left-seg">Currency Code</div>
+                        <div class="right-seg">
+                            <span class="bold">USD</span>
+                            <span>Code (Standard ISO) for country in whose currency the charges are specified</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,25,5,28)" onmouseout="clearAll()">
+                        <div class="left-seg">Currency Market/Exchange Code</div>
+                        <div class="right-seg">
+                            <span class="bold">IMF</span>
+                            <span>Code identifying the market upon which the currency exchange rate is based</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,29,5,32)" onmouseout="clearAll()">
+                        <div class="left-seg">Date/Time Qualifier</div>
+                        <div class="right-seg">
+                            <span class="bold">002</span>
+                            <span>Code specifying type of date or time, or both date and time</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,33,5,41)" onmouseout="clearAll()">
+                        <div class="left-seg">Date</div>
+                        <div class="right-seg">
+                            <span class="bold">2002-11-06</span>
+                            <span>Date expressed as CCYYMMDD</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,42,5,46)" onmouseout="clearAll()">
+                        <div class="left-seg">Time</div>
+                        <div class="right-seg">
+                            <span class="bold">16:15</span>
+                            <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
+                                HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
+                                DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                = hundredths (00-99)</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,47,5,50)" onmouseout="clearAll()">
+                        <div class="left-seg">Date/Time Qualifier</div>
+                        <div class="right-seg">
+                            <span class="bold">021</span>
+                            <span>Code specifying type of date or time, or both date and time</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,51,5,59)" onmouseout="clearAll()">
+                        <div class="left-seg">Date</div>
+                        <div class="right-seg">
+                            <span class="bold">2002-11-06</span>
+                            <span>Date expressed as CCYYMMDD</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,60,5,64)" onmouseout="clearAll()">
+                        <div class="left-seg">Time</div>
+                        <div class="right-seg">
+                            <span class="bold">07:18</span>
+                            <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
+                                HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
+                                DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                = hundredths (00-99)</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,65,5,68)" onmouseout="clearAll()">
+                        <div class="left-seg">Date/Time Qualifier</div>
+                        <div class="right-seg">
+                            <span class="bold">038</span>
+                            <span>Code specifying type of date or time, or both date and time</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,69,5,77)" onmouseout="clearAll()">
+                        <div class="left-seg">Date</div>
+                        <div class="right-seg">
+                            <span class="bold">2002-11-06</span>
+                            <span>Date expressed as CCYYMMDD</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,78,5,82)" onmouseout="clearAll()">
+                        <div class="left-seg">Time</div>
+                        <div class="right-seg">
+                            <span class="bold">19:52</span>
+                            <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
+                                HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
+                                DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                = hundredths (00-99)</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,83,5,86)" onmouseout="clearAll()">
+                        <div class="left-seg">Date/Time Qualifier</div>
+                        <div class="right-seg">
+                            <span class="bold">002</span>
+                            <span>Code specifying type of date or time, or both date and time</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,87,5,95)" onmouseout="clearAll()">
+                        <div class="left-seg">Date</div>
+                        <div class="right-seg">
+                            <span class="bold">2002-11-06</span>
+                            <span>Date expressed as CCYYMMDD</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,96,5,100)" onmouseout="clearAll()">
+                        <div class="left-seg">Time</div>
+                        <div class="right-seg">
+                            <span class="bold">16:15</span>
+                            <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
+                                HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
+                                DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                = hundredths (00-99)</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,101,5,104)" onmouseout="clearAll()">
+                        <div class="left-seg">Date/Time Qualifier</div>
+                        <div class="right-seg">
+                            <span class="bold">021</span>
+                            <span>Code specifying type of date or time, or both date and time</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,105,5,113)" onmouseout="clearAll()">
+                        <div class="left-seg">Date</div>
+                        <div class="right-seg">
+                            <span class="bold">2002-11-06</span>
+                            <span>Date expressed as CCYYMMDD</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(5,114,5,118)" onmouseout="clearAll()">
+                        <div class="left-seg">Time</div>
+                        <div class="right-seg">
+                            <span class="bold">07:18</span>
+                            <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
+                                HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
+                                DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                = hundredths (00-99)</span>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(6,1,6,94)" onmouseout="clearAll()">
+                    <i class="material-icons" onclick="setID('s6')">expand_more</i>
+                    <span class="segment">REF</span>
+                    <span class="top-seg">Reference Identification</span>
+                </div>
+                <div id="s6">
+                    <div class="child-seg flex-display" onmouseover="onHover(6,5,6,7)" onmouseout="clearAll()">
+                        <div class="left-seg">Reference Identification Qualifier</div>
+                        <div class="right-seg">
+                            <span class="bold">AB</span>
+                            <span>Code qualifying the Reference Identification</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(6,8,6,21)" onmouseout="clearAll()">
+
+                        <div class="left-seg">Reference Identification</div>
+                        <div class="right-seg">
+                            <span class="bold">3920394930203</span>
+                            <span>Reference information as defined for a particular Transaction Set or as specified by
+                                the Reference Identification Qualifier</span>
+                        </div>
+
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(6,22,6,37)" onmouseout="clearAll()">
+                        <div class="left-seg">Description</div>
+                        <div class="right-seg">
+                            <span class="bold">GENERAL PURPOSE</span>
+                            <span>A free-form description to clarify the related data elements and their content</span>
+                        </div>
+                    </div>
+                    <div class="child-seg">
+                        <div class="flex-display" onmouseover="onHover(6,38,6,94)" onmouseout="clearAll()">
+
+                            <div class="left-seg">
+                                <i class="material-icons" onclick="setID('s6_1')">expand_more</i>
+                                Reference Identifier
+                            </div>
+                            <div class="right-seg">
+                                <span class="bold"></span>
+                                <span>
+                                    To identify one or more reference numbers or identification numbers as specified by
+                                    the Reference Qualifier
+
+                                    Syntax Notes:
+                                    1. P0304 Paired Multiple
+                                    2. P0506 Paired Multiple
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div id="s6_1">
+                            <div class="child-seg flex-display" onmouseover="onHover(6,38,6,40)" onmouseout="clearAll()">
+                                <div class="left-seg">Reference Identification Qualifier</div>
+                                <div class="right-seg">
+                                    <span class="bold">BT</span>
+                                    <span>Code qualifying the Reference Identification</span>
+                                </div>
+                            </div>
+                            <div class="child-seg flex-display" onmouseover="onHover(6,41,6,70)" onmouseout="clearAll()">
+                                <div class="left-seg">Reference Identification</div>
+                                <div class="right-seg">
+                                    <span class="bold">12389112300123890123768958473</span>
+                                    <span>Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier</span>
+                                </div>
+                            </div>
+                            
+                            <div class="child-seg flex-display" onmouseover="onHover(6,71,6,73)" onmouseout="clearAll()">
+                                <div class="left-seg">Reference Identification Qualifier</div>
+                                <div class="right-seg">
+                                    <span class="bold">CM</span>
+                                    <span>Code qualifying the Reference Identification</span>
+                                </div>
+                            </div>
+                            <div class="child-seg flex-display" onmouseover="onHover(6,74,6,77)" onmouseout="clearAll()">
+                                <div class="left-seg">Reference Identification Qualifier</div>
+                                <div class="right-seg">
+                                    <span class="bold">500</span>
+                                    <span>Code qualifying the Reference Identification</span>
+                                </div>
+                            </div>
+                            <div class="child-seg flex-display" onmouseover="onHover(6,78,6,80)" onmouseout="clearAll()">
+                                <div class="left-seg">Reference Identification Qualifier</div>
+                                <div class="right-seg">
+                                    <span class="bold">AB</span>
+                                    <span>Code qualifying the Reference Identification</span>
+                                </div>
+                            </div>
+                            <div class="child-seg flex-display" onmouseover="onHover(6,81,6,94)" onmouseout="clearAll()">
+                                <div class="left-seg">Reference Identification Qualifier</div>
+                                <div class="right-seg">
+                                    <span class="bold">3920394930203</span>
+                                    <span>Code qualifying the Reference Identification</span>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        <div id="editor" style="height: 500px; width: 50%;"></div>
+
+    </div>
+
+
+
+    <!-- Your JavaScript code will go here -->
+
+</body>
+
+</html>
