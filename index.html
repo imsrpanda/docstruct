@@ -36,6 +36,7 @@
     .right-seg {
         width: 60%;
         font-size: 14px;
+
     }
 
     .flex-display {
@@ -472,6 +473,8 @@
             decorationId = editor.deltaDecorations([], [decoration]);
             decId2 = editor.deltaDecorations([], [de2]);
             decId3 = editor.deltaDecorations([], [de3]);
+
+            editor.revealLine(sl);
 
         }
 
@@ -1098,7 +1101,6 @@
                                 Reference Identifier
                             </div>
                             <div class="right-seg">
-                                <span class="bold"></span>
                                 <span>
                                     To identify one or more reference numbers or identification numbers as specified by
                                     the Reference Qualifier
@@ -1111,7 +1113,7 @@
 
                         </div>
 
-                        <div id="s6_1">
+                        <div id="s6_1" class="nodisplay">
                             <div class="child-seg flex-display" onmouseover="onHover(6,38,6,40)"
                                 onmouseout="clearAll()">
                                 <div class="left-seg">Reference Identification Qualifier</div>
@@ -1323,7 +1325,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(14,1,14,111)" onmouseout="clearAll()"
+                <div class="seg-bottom" onmouseover="onHover(14,1,15,118)" onmouseout="clearAll()"
                 title='
                 To request or identify a service, promotion, allowance, or charge; to specify the amount or percentage for the service, promotion, allowance, or charge
                 
@@ -1352,9 +1354,616 @@
                 6. SAC14 is used in conjunction with SAC13 to identify an option when there is more than one option of the promotion.
                 7. SAC16 is used to identify the language being used in SAC15.
                               '>
-                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
-                    <span class="segment">SAC</span>
+                    <i class="material-icons" onclick="setID('s14')">expand_more</i>
+                    <span class="segment">SAC</span> (Loop)
                     <span class="top-seg">Service, Promotion, Allowance, or Charge Information</span>
+                </div>
+
+                <div id="s14" class="nodisplay child-seg">
+                    <div class="flex-display" onmouseover="onHover(6,38,6,94)" onmouseout="clearAll()">
+
+                        <div class="left-seg">
+                            <i class="material-icons" onclick="setID('s14_1')">expand_more</i>
+                            SAC
+                        </div>
+                        <div class="right-seg">
+                            <span class="bold"></span>
+                            <span>
+                                Service, Promotion, Allowance, or Charge Information
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div id="s14_1 nodisplay">
+                        <div class="child-seg flex-display" onmouseover="onHover(14,5,14,6)"
+                            onmouseout="clearAll()">
+                            <div class="left-seg">Allowance or Charge Indicator</div>
+                            <div class="right-seg">
+                                <span class="bold">A</span>
+                                <span>Allowance</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(14,7,14,11)"
+                            onmouseout="clearAll()">
+                            <div class="left-seg">Service, Promotion, Allowance, or Charge Code</div>
+                            <div class="right-seg">
+                                <span class="bold">A010</span>
+                                <span>Absolute Minimum Charge</span>
+                            </div>
+                        </div>
+
+                        <div class="child-seg flex-display" onmouseover="onHover(14,12,14,14)"
+                            onmouseout="clearAll()">
+                            <div class="left-seg">Agency Qualifier Code</div>
+                            <div class="right-seg">
+                                <span class="bold">AA</span>
+                                <span>Aluminum Association</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(14,15,14,16)"
+                            onmouseout="clearAll()">
+                            <div class="left-seg">Agency Service, Promotion, Allowance, or Charge Code</div>
+                            <div class="right-seg">
+                                <span class="bold">1</span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(14,17,14,22)"
+                            onmouseout="clearAll()">
+                            <div class="left-seg">Amount</div>
+                            <div class="right-seg">
+                                <span class="bold">50000</span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(14,23,14,24)"
+                            onmouseout="clearAll()">
+                            <div class="left-seg">Allowance/Charge Percent Qualifier</div>
+                            <div class="right-seg">
+                                <span class="bold">1</span>
+                                <span>1Item List Cost</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(14,25,14,28)"
+                            onmouseout="clearAll()">
+                            <div class="left-seg">Percent</div>
+                            <div class="right-seg">
+                                <span class="bold">.25</span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(14,29,14,33)"
+                            onmouseout="clearAll()">
+                            <div class="left-seg">Rate</div>
+                            <div class="right-seg">
+                                <span class="bold">5000</span>
+                                <span></span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(14,29,14,33)"
+                            onmouseout="clearAll()">
+                            <div class="left-seg">Unit or Basis for Measurement Code</div>
+                            <div class="right-seg">
+                                <span class="bold">HB</span>
+                                <span>Hundred Boxes</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="flex-display" style="margin: 8px 0px;" onmouseover="onHover(6,38,6,94)" onmouseout="clearAll()">
+
+                        <div class="left-seg">
+                            <i class="material-icons" onclick="setID('s14_2')">expand_more</i>
+                            CUR
+                        </div>
+                        <div class="right-seg">
+                            <span class="bold"></span>
+                            <span>
+                                Currency
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div id="s14_2 nodisplay">
+
+                        <div class="child-seg flex-display" onmouseover="onHover(15,5,15,7)" onmouseout="clearAll()">
+                            <div class="left-seg">Entity Identifier Code</div>
+                            <div class="right-seg">
+                                <span class="bold">BK</span>
+                                <span>Code identifying an organizational entity, a physical location, property or an
+                                    individual</span>
+                            </div>
+                        </div>
+                        
+                        <div class="child-seg flex-display" onmouseover="onHover(15,8,15,11)" onmouseout="clearAll()">
+
+                            <div class="left-seg">Currency Code</div>
+                            <div class="right-seg">
+                                <span class="bold">USD</span>
+                                <span>Code (Standard ISO) for country in whose currency the charges are specified</span>
+                            </div>
+    
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,12,15,17)" onmouseout="clearAll()">
+                            <div class="left-seg">Exchange Rate</div>
+                            <div class="right-seg">
+                                <span class="bold">1.259</span>
+                                <span>Value to be used as a multiplier conversion factor to convert monetary value from one
+                                    currency to another</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,18,15,20)" onmouseout="clearAll()">
+    
+                            <div class="left-seg">Entity Identifier Code</div>
+                            <div class="right-seg">
+                                <span class="bold">AC</span>
+                                <span>Code identifying an organizational entity, a physical location, property or an
+                                    individual</span>
+                            </div>
+    
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,21,15,24)" onmouseout="clearAll()">
+                            <div class="left-seg">Currency Code</div>
+                            <div class="right-seg">
+                                <span class="bold">USD</span>
+                                <span>Code (Standard ISO) for country in whose currency the charges are specified</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,25,15,28)" onmouseout="clearAll()">
+                            <div class="left-seg">Currency Market/Exchange Code</div>
+                            <div class="right-seg">
+                                <span class="bold">LNF</span>
+                                <span>Code identifying the market upon which the currency exchange rate is based</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,29,15,32)" onmouseout="clearAll()">
+                            <div class="left-seg">Date/Time Qualifier</div>
+                            <div class="right-seg">
+                                <span class="bold">002</span>
+                                <span>Code specifying type of date or time, or both date and time</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,33,15,41)" onmouseout="clearAll()">
+                            <div class="left-seg">Date</div>
+                            <div class="right-seg">
+                                <span class="bold">2002-11-06</span>
+                                <span>Date expressed as CCYYMMDD</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,42,15,46)" onmouseout="clearAll()">
+                            <div class="left-seg">Time</div>
+                            <div class="right-seg">
+                                <span class="bold">19:52</span>
+                                <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
+                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
+                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                    = hundredths (00-99)</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,47,15,50)" onmouseout="clearAll()">
+                            <div class="left-seg">Date/Time Qualifier</div>
+                            <div class="right-seg">
+                                <span class="bold">002</span>
+                                <span>Code specifying type of date or time, or both date and time</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,51,15,59)" onmouseout="clearAll()">
+                            <div class="left-seg">Date</div>
+                            <div class="right-seg">
+                                <span class="bold">2002-11-06</span>
+                                <span>Date expressed as CCYYMMDD</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,60,15,64)" onmouseout="clearAll()">
+                            <div class="left-seg">Time</div>
+                            <div class="right-seg">
+                                <span class="bold">16:15</span>
+                                <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
+                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
+                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                    = hundredths (00-99)</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,65,15,68)" onmouseout="clearAll()">
+                            <div class="left-seg">Date/Time Qualifier</div>
+                            <div class="right-seg">
+                                <span class="bold">021</span>
+                                <span>Code specifying type of date or time, or both date and time</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,69,15,77)" onmouseout="clearAll()">
+                            <div class="left-seg">Date</div>
+                            <div class="right-seg">
+                                <span class="bold">2002-11-06</span>
+                                <span>Date expressed as CCYYMMDD</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,78,15,82)" onmouseout="clearAll()">
+                            <div class="left-seg">Time</div>
+                            <div class="right-seg">
+                                <span class="bold">07:18</span>
+                                <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
+                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
+                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                    = hundredths (00-99)</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,83,15,86)" onmouseout="clearAll()">
+                            <div class="left-seg">Date/Time Qualifier</div>
+                            <div class="right-seg">
+                                <span class="bold">038</span>
+                                <span>Code specifying type of date or time, or both date and time</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,87,15,95)" onmouseout="clearAll()">
+                            <div class="left-seg">Date</div>
+                            <div class="right-seg">
+                                <span class="bold">2002-11-06</span>
+                                <span>Date expressed as CCYYMMDD</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,96,15,100)" onmouseout="clearAll()">
+                            <div class="left-seg">Time</div>
+                            <div class="right-seg">
+                                <span class="bold">19:15</span>
+                                <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
+                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
+                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                    = hundredths (00-99)</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,101,15,104)" onmouseout="clearAll()">
+                            <div class="left-seg">Date/Time Qualifier</div>
+                            <div class="right-seg">
+                                <span class="bold">021</span>
+                                <span>Code specifying type of date or time, or both date and time</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,105,15,113)" onmouseout="clearAll()">
+                            <div class="left-seg">Date</div>
+                            <div class="right-seg">
+                                <span class="bold">2002-11-06</span>
+                                <span>Date expressed as CCYYMMDD</span>
+                            </div>
+                        </div>
+                        <div class="child-seg flex-display" onmouseover="onHover(15,114,15,118)" onmouseout="clearAll()">
+                            <div class="left-seg">Time</div>
+                            <div class="right-seg">
+                                <span class="bold">07:18</span>
+                                <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
+                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
+                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                    = hundredths (00-99)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(16,1,16,89)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">ITD</span>
+                    <span class="top-seg">
+                        Terms of Sale/Deferred Terms of Sale</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(17,1,17,29)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">DIS</span>
+                    <span class="top-seg">
+                        Discount details</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(18,1,18,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">INC</span>
+                    <span class="top-seg">
+                        Installment information</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(19,1,19,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">DTM</span>
+                    <span class="top-seg">
+                        Date/Time Reference</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(20,1,20,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">LDT</span>
+                    <span class="top-seg">
+                        Lead time</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(21,1,21,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">LIN</span>
+                    <span class="top-seg">
+                        Item identification</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(22,1,22,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">SI</span>
+                    <span class="top-seg">
+                        Service Characteristic Identification</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(23,1,23,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">PID</span>
+                    <span class="top-seg">
+                        Product/Item Description</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(24,1,24,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">MEA</span>
+                    <span class="top-seg">
+                        Measurements</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(25,1,25,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">PWK</span>
+                    <span class="top-seg">
+                        Paperwork</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(26,1,26,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">PKG</span>
+                    <span class="top-seg">
+                        Marking, Packaging, Loading</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(27,1,27,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">TD1</span>
+                    <span class="top-seg">
+                        Carrier Details (Quantity and Weight)</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(28,1,28,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">TD5</span>
+                    <span class="top-seg">
+                        Carrier Details (Routing Sequence/Transit Time)</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(29,1,29,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">TD3</span>
+                    <span class="top-seg">
+                        Carrier Details (Equipment)</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(30,1,30,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">TD4</span>
+                    <span class="top-seg">
+                        Carrier Details (Special Handling, or Hazardous Materials, or Both)</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(31,1,31,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">MAN</span>
+                    <span class="top-seg">
+                        Marks and Numbers</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(32,1,32,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">PCT</span>
+                    <span class="top-seg">
+                        Percent Amounts</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(33,1,33,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">CTB</span>
+                    <span class="top-seg">
+                        Restrictions/Conditions</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(34,1,34,130)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">TXI</span>
+                    <span class="top-seg">
+                        Tax Information</span>
                 </div>
             </div>
 
