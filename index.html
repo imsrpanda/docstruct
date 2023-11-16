@@ -46,6 +46,11 @@
         margin-bottom: 12px;
     }
 
+    .seg-bottom:hover {
+        background-color: lavender;
+        cursor: pointer;
+    }
+
     i {
         cursor: pointer;
         vertical-align: middle;
@@ -72,6 +77,18 @@
     ::-webkit-scrollbar {
         width: 5px;
     }
+
+    /* .seg-bottom:hover:after {
+        content: attr(title);
+        position: absolute;
+        top: 0%;
+        left: 94px;
+        border: 1px solid;
+        width: 43%;
+        background: aliceblue;
+        padding: 4px;
+        border-radius: 4px;
+    } */
 </style>
 <html lang="en">
 
@@ -485,7 +502,8 @@
         <div style="width: 50%;height: 500px;overflow: scroll;">
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(1,1,1,106)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(1,1,1,106)" onmouseout="clearAll()"
+                    title="To start and identyfy an interchange of zero or more functional groups and interchange-related control segments">
                     <i class="material-icons" onclick="setID('s1')">expand_more</i>
                     <span class="segment">ISA</span>
                     <span class="top-seg">Interchange Control Header</span>
@@ -609,7 +627,8 @@
 
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(2,1,2,51)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(2,1,2,51)" onmouseout="clearAll()"
+                title="To indicate the beginning of a functional group and to provide control information">
                     <i class="material-icons" onclick="setID('s2')">expand_more</i>
                     <span class="segment">GS</span>
                     <span class="top-seg">Functional Group Header</span>
@@ -677,7 +696,13 @@
 
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(3,1,3,12)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(3,1,3,12)" onmouseout="clearAll()"
+                title="
+                To indicate the start of a transaction set and to assign a control number
+                
+                Semantic Notes:
+                1. The transaction set identifier (ST01) used by the translation routines of the interchange partners to select the appropriate transaction set definition (e.g., 810 selects the Invoice Transaction Set).
+                            ">
                     <i class="material-icons" onclick="setID('s3')">expand_more</i>
                     <span class="segment">ST</span>
                     <span class="top-seg">Transaction Set Header</span>
@@ -707,7 +732,13 @@
 
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(4,1,4,77)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(4,1,4,77)" onmouseout="clearAll()"
+                title="
+                To indicate the beginning of the Purchase Order Transaction Set and transmit identifying numbers and dates
+                
+                Semantic Notes:
+                1. BEG05 is the date assigned by the purchaser to purchase order.
+                              ">
                     <i class="material-icons" onclick="setID('s4')">expand_more</i>
                     <span class="segment">BEG</span>
                     <span class="top-seg">Beginning Segment for Purchase Order</span>
@@ -812,7 +843,29 @@
 
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(5,1,5,118)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(5,1,5,118)" onmouseout="clearAll()"
+                title="
+                To specify the currency (dollars, pounds, francs, etc.) used in a transaction
+                
+                Comments
+                1. See Figures Appendix for examples detailing the use of the CUR segment.
+                
+                Syntax Notes:
+                1. C0807 Conditional
+                2. C0907 Conditional
+                3. L101112 List Conditional
+                4. C1110 Conditional
+                5. C1210 Conditional
+                6. L131415 List Conditional
+                7. C1413 Conditional
+                8. C1513 Conditional
+                9. L161718 List Conditional
+                10. C1716 Conditional
+                11. C1816 Conditional
+                12. L192021 List Conditional
+                13. C2019 Conditional
+                14. C2119 Conditional
+                              ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
                     <span class="segment">CUR</span>
                     <span class="top-seg">Currency</span>
@@ -997,7 +1050,16 @@
 
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(6,1,6,94)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(6,1,6,94)" onmouseout="clearAll()"
+                title="
+                To specify identifying information
+                
+                Syntax Notes:
+                1. R0203 Required
+                
+                Semantic Notes:
+                1. REF04 contains data relating to the value cited in REF02.
+                              ">
                     <i class="material-icons" onclick="setID('s6')">expand_more</i>
                     <span class="segment">REF</span>
                     <span class="top-seg">Reference Identification</span>
@@ -1049,50 +1111,57 @@
                         </div>
 
                         <div id="s6_1">
-                            <div class="child-seg flex-display" onmouseover="onHover(6,38,6,40)" onmouseout="clearAll()">
+                            <div class="child-seg flex-display" onmouseover="onHover(6,38,6,40)"
+                                onmouseout="clearAll()">
                                 <div class="left-seg">Reference Identification Qualifier</div>
                                 <div class="right-seg">
                                     <span class="bold">BT</span>
                                     <span>Code qualifying the Reference Identification</span>
                                 </div>
                             </div>
-                            <div class="child-seg flex-display" onmouseover="onHover(6,41,6,70)" onmouseout="clearAll()">
+                            <div class="child-seg flex-display" onmouseover="onHover(6,41,6,70)"
+                                onmouseout="clearAll()">
                                 <div class="left-seg">Reference Identification</div>
                                 <div class="right-seg">
                                     <span class="bold">12389112300123890123768958473</span>
-                                    <span>Reference information as defined for a particular Transaction Set or as specified by the Reference Identification Qualifier</span>
+                                    <span>Reference information as defined for a particular Transaction Set or as
+                                        specified by the Reference Identification Qualifier</span>
                                 </div>
                             </div>
-                            
-                            <div class="child-seg flex-display" onmouseover="onHover(6,71,6,73)" onmouseout="clearAll()">
+
+                            <div class="child-seg flex-display" onmouseover="onHover(6,71,6,73)"
+                                onmouseout="clearAll()">
                                 <div class="left-seg">Reference Identification Qualifier</div>
                                 <div class="right-seg">
                                     <span class="bold">CM</span>
                                     <span>Code qualifying the Reference Identification</span>
                                 </div>
                             </div>
-                            <div class="child-seg flex-display" onmouseover="onHover(6,74,6,77)" onmouseout="clearAll()">
+                            <div class="child-seg flex-display" onmouseover="onHover(6,74,6,77)"
+                                onmouseout="clearAll()">
                                 <div class="left-seg">Reference Identification Qualifier</div>
                                 <div class="right-seg">
                                     <span class="bold">500</span>
                                     <span>Code qualifying the Reference Identification</span>
                                 </div>
                             </div>
-                            <div class="child-seg flex-display" onmouseover="onHover(6,78,6,80)" onmouseout="clearAll()">
+                            <div class="child-seg flex-display" onmouseover="onHover(6,78,6,80)"
+                                onmouseout="clearAll()">
                                 <div class="left-seg">Reference Identification Qualifier</div>
                                 <div class="right-seg">
                                     <span class="bold">AB</span>
                                     <span>Code qualifying the Reference Identification</span>
                                 </div>
                             </div>
-                            <div class="child-seg flex-display" onmouseover="onHover(6,81,6,94)" onmouseout="clearAll()">
+                            <div class="child-seg flex-display" onmouseover="onHover(6,81,6,94)"
+                                onmouseout="clearAll()">
                                 <div class="left-seg">Reference Identification Qualifier</div>
                                 <div class="right-seg">
                                     <span class="bold">3920394930203</span>
                                     <span>Code qualifying the Reference Identification</span>
                                 </div>
                             </div>
-                            
+
                         </div>
 
                     </div>
@@ -1103,10 +1172,18 @@
             </div>
 
 
-<!-- dummyy..... -->
+            <!-- dummyy..... -->
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(7,1,7,89)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(7,1,7,89)" onmouseout="clearAll()"
+                title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
                     <span class="segment">PER</span>
                     <span class="top-seg">Administrative Communications Contact</span>
@@ -1114,7 +1191,22 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(8,1,8,63)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(8,1,8,63)" onmouseout="clearAll()"
+                title="
+                To provide data required for proper notification/determination of applicable taxes applying to the transaction or business described in the transaction
+                
+                Comments
+                1. Tax ID number is, in many instances, referred to as a Tax Exemption Number. The paired (combined) use of data elements 309 and 310 provides for the designation of five taxing jurisdictions.
+                2. TAX01 is required if tax exemption is being claimed.
+                
+                Syntax Notes:
+                1. R0103 Required
+                2. P0203 Paired Multiple
+                3. P0405 Paired Multiple
+                4. P0607 Paired Multiple
+                5. P0809 Paired Multiple
+                6. P1011 Paired Multiple
+                              ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
                     <span class="segment">TAX</span>
                     <span class="top-seg">Tax Reference</span>
@@ -1122,7 +1214,22 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(9,1,9,71)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(9,1,9,71)" onmouseout="clearAll()"
+                title="
+                To provide data required for proper notification/determination of applicable taxes applying to the transaction or business described in the transaction
+                
+                Comments
+                1. Tax ID number is, in many instances, referred to as a Tax Exemption Number. The paired (combined) use of data elements 309 and 310 provides for the designation of five taxing jurisdictions.
+                2. TAX01 is required if tax exemption is being claimed.
+                
+                Syntax Notes:
+                1. R0103 Required
+                2. P0203 Paired Multiple
+                3. P0405 Paired Multiple
+                4. P0607 Paired Multiple
+                5. P0809 Paired Multiple
+                6. P1011 Paired Multiple
+                              ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
                     <span class="segment">FOB</span>
                     <span class="top-seg">F.O.B. Related Instructions</span>
@@ -1130,7 +1237,25 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(10,1,10,156)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(10,1,10,156)" onmouseout="clearAll()"
+                title="
+                To specify pricing information
+                
+                Comments
+                1. See Figures Appendix for an example detailing the use of CTP03 and CTP04.
+                See Figures Appendix for an example detailing the use of CTP03, CTP04 and CTP07.
+                
+                Syntax Notes:
+                1. P0405 Paired Multiple
+                2. C0607 Conditional
+                3. C0902 Conditional
+                4. C1002 Conditional
+                5. C1103 Conditional
+                
+                Semantic Notes:
+                1. CTP07 is a multiplier factor to arrive at a final discounted price. A multiplier of .90 would be the factor if a 10% discount is given.
+                2. CTP08 is the rebate amount.
+                              ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
                     <span class="segment">CTP</span>
                     <span class="top-seg">Pricing Information</span>
@@ -1138,7 +1263,27 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(11,1,11,174)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(11,1,11,174)" onmouseout="clearAll()"
+                title="
+                To indicate a quantity, and/or amount for an identified period
+                
+                Syntax Notes:
+                1. P010203 Paired Multiple
+                2. R020514 Required
+                3. P0405 Paired Multiple
+                4. P0607 Paired Multiple
+                5. L070809 List Conditional
+                6. C0706 Conditional
+                7. C0807 Conditional
+                8. C0907 Conditional
+                9. L101112 List Conditional
+                10. C1110 Conditional
+                11. P1314 Paired Multiple
+                
+                Semantic Notes:
+                1. PAM10, PAM11, or PAM12 are used when two dates are required.
+                2. PAM15 indicates whether the monetary amount identified in PAM05 is a net or gross value.  A "Y" indicates amount is a gross value; an "N" indicates amount is a net value.
+                              ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
                     <span class="segment">PAM</span>
                     <span class="top-seg">Period Amount</span>
@@ -1146,7 +1291,21 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(12,1,12,49)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(12,1,12,49)" onmouseout="clearAll()"
+                title="
+                To specify general conditions or requirements of the sale
+                
+                Syntax Notes:
+                1. C0203 Conditional
+                2. P0607 Paired Multiple
+                3. P0910 Paired Multiple
+                
+                Semantic Notes:
+                1. CSH03 is the maximum monetary amount value which the order must not exceed.
+                2. CSH04 is the account number to which the purchase amount is charged.
+                3. CSH05 is the date specified by the sender to be shown on the invoice.
+                4. CSH06 identifies the source of the code value in CSH07.
+                              ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
                     <span class="segment">CSH</span>
                     <span class="top-seg">Sales Requirements</span>
@@ -1154,7 +1313,8 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(13,1,13,13)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(13,1,13,13)" onmouseout="clearAll()"
+                title="To identify a commodity or a group of commodities or a tariff page commodity">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
                     <span class="segment">TC2</span>
                     <span class="top-seg">Commodity</span>
@@ -1162,13 +1322,41 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(14,1,14,111)" onmouseout="clearAll()">
+                <div class="seg-bottom" onmouseover="onHover(14,1,14,111)" onmouseout="clearAll()"
+                title='
+                To request or identify a service, promotion, allowance, or charge; to specify the amount or percentage for the service, promotion, allowance, or charge
+                
+                Comments
+                1. SAC04 may be used to uniquely identify the service, promotion, allowance, or charge. In addition, it may be used in conjunction to further the code in SAC02.
+                2. In some business applications, it is necessary to advise the trading partner of the actual dollar amount that a particular allowance, charge, or promotion was based on to reduce ambiguity. This amount is commonly referred to as "Dollar Basis Amount". It is represented in the SAC segment in SAC10 using the qualifier "DO" - Dollars in SAC09.
+                
+                Syntax Notes:
+                1. R0203 Required
+                2. P0304 Paired Multiple
+                3. P0607 Paired Multiple
+                4. P0910 Paired Multiple
+                5. C1110 Conditional
+                6. L130204 List Conditional
+                7. C1413 Conditional
+                8. C1615 Conditional
+                
+                Semantic Notes:
+                1. If SAC01 is "A" or "C", then at least one of SAC05, SAC07, or SAC08 is required.
+                2. SAC05 is the total amount for the service, promotion, allowance, or charge.
+                If SAC05 is present with SAC07 or SAC08, then SAC05 takes precedence.
+                3. SAC08 is the allowance or charge rate per unit.
+                4. SAC10 and SAC11 is the quantity basis when the allowance or charge quantity is different from the purchase order or invoice quantity.
+                SAC10 and SAC11 used together indicate a quantity range, which could be a dollar amount, that is applicable to service, promotion, allowance, or charge.
+                5. SAC13 is used in conjunction with SAC02 or SAC04 to provide a specific reference number as identified by the code used.
+                6. SAC14 is used in conjunction with SAC13 to identify an option when there is more than one option of the promotion.
+                7. SAC16 is used to identify the language being used in SAC15.
+                              '>
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
                     <span class="segment">SAC</span>
                     <span class="top-seg">Service, Promotion, Allowance, or Charge Information</span>
                 </div>
             </div>
-            
+
         </div>
         <div id="editor" style="height: 500px; width: 50%;"></div>
 
