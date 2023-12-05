@@ -76,6 +76,17 @@
         opacity: .3;
     }
 
+    .error {
+        color: red !important;
+        border: 2px solid;
+        font-weight: 600;
+    }
+
+    .error-label {
+        text-align: right;
+        margin-right: 90px;
+    }
+
     ::-webkit-scrollbar {
         width: 5px;
     }
@@ -101,6 +112,14 @@
         var decorationId;
         var decId2;
         var decId3;
+
+        var decId4;
+        var decId5;
+        var decId6;
+        var decId7;
+
+        errors = [[27,5,27,10],[53,5,53,10],[92,14,92,19],[109,5,109,10]];
+        errorIndex = -1;
         require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.27.0/min/vs' } });
 
         require(['vs/editor/editor.main'], function () {
@@ -380,6 +399,45 @@
                         }
 
                     ]
+                },
+                {
+                    "name": "TD1",
+                    "AN": "",
+                    "desc": "",
+                    "children": [
+                        {
+                            "name": "TD01",
+                            "value": "BAG07",
+                            "AN": "Carrier details",
+                            "desc": "Element TD1-01 must equal one of 203 values; value found was 'BAG07'"
+                        }
+                    ]
+                },
+                {
+                    "name": "TD1",
+                    "AN": "",
+                    "desc": "",
+                    "children": [
+                        {
+                            "name": "TD01",
+                            "value": "BBL94",
+                            "AN": "Carrier details",
+                            "desc": "Element TD1-01 must equal one of 203 values; value found was 'BBL94'"
+                        }
+                    ]
+                },
+                {
+                    "name": "PO4",
+                    "AN": "",
+                    "desc": "",
+                    "children": [
+                        {
+                            "name": "PO404",
+                            "value": "PLT37",
+                            "AN": "Packaging code",
+                            "desc": "Element PO4-04 must equal one of 203 values; value found was 'PLT37'"
+                        }
+                    ]
                 }
             ];
             var segments = v.map(x => x.name);
@@ -438,6 +496,8 @@
 
 
 
+
+
         });
 
         function onHover(sl, s, el, e) {
@@ -470,9 +530,47 @@
                 }
             }
 
+            var de4 = {
+                range: new monaco.Range(27, 5, 27, 10),
+                options: {
+                    isWholeLine: false, // Set to true if you want to highlight the whole line
+                    inlineClassName: 'error', // CSS class for styling the highlighted text
+                }
+            }
+
+            var de5 = {
+                range: new monaco.Range(53, 5, 53, 10),
+                options: {
+                    isWholeLine: false, // Set to true if you want to highlight the whole line
+                    inlineClassName: 'error', // CSS class for styling the highlighted text
+                }
+            }
+
+            var de6 = {
+                range: new monaco.Range(92, 14, 92, 19),
+                options: {
+                    isWholeLine: false, // Set to true if you want to highlight the whole line
+                    inlineClassName: 'error', // CSS class for styling the highlighted text
+                }
+            }
+
+            var de7 = {
+                range: new monaco.Range(109, 5, 109, 10),
+                options: {
+                    isWholeLine: false, // Set to true if you want to highlight the whole line
+                    inlineClassName: 'error', // CSS class for styling the highlighted text
+                }
+            }
+
             decorationId = editor.deltaDecorations([], [decoration]);
             decId2 = editor.deltaDecorations([], [de2]);
             decId3 = editor.deltaDecorations([], [de3]);
+
+            decId4 = editor.deltaDecorations([], [de4]);
+            decId5 = editor.deltaDecorations([], [de5]);
+            decId6 = editor.deltaDecorations([], [de6]);
+            decId7 = editor.deltaDecorations([], [de7]);
+
 
             editor.revealLine(sl);
             
@@ -491,6 +589,20 @@
             }
         }
 
+        function nextError() {
+            if(this.errorIndex<3)
+            this.errorIndex++;
+            editor.revealLine(this.errors[this.errorIndex][0]);
+            document.getElementById('error-num').innerHTML = '<b style="font-weight:600;font-size:14px">'+(this.errorIndex+1)+'</b> of <b style="font-weight:600;font-size:14px">4</b>';
+        }
+        
+        function prevError() {
+            if(this.errorIndex>0)
+            this.errorIndex--;
+            editor.revealLine(this.errors[this.errorIndex][0]);
+            document.getElementById('error-num').innerHTML = '<b style="font-weight:600;font-size:14px">'+(this.errorIndex+1)+'</b> of <b style="font-weight:600;font-size:14px">4</b>';
+        }
+
 
     </script>
     <meta charset="UTF-8">
@@ -503,6 +615,11 @@
 
 <body>
     <!-- Container for the editor -->
+    <div class="error-label">
+
+        4 Errors <span><i class="material-icons" onclick="nextError()">expand_more</i></span> <span><i class="material-icons" onclick="prevError()">expand_less</i></span>
+        <span id="error-num"></span>
+    </div>
     <div style="display: flex;">
         <div style="width: 50%;height: 500px;overflow: scroll;">
 
@@ -1969,6 +2086,7 @@
             </div>
 
         </div>
+        
         <div id="editor" style="height: 500px; width: 50%;"></div>
 
     </div>
