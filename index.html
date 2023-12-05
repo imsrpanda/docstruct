@@ -61,7 +61,6 @@
         margin-right: 4px;
         font-size: 12px;
         color: #1776bf;
-        display: none;
     }
 
     .top-seg {
@@ -96,6 +95,24 @@
         margin-right: 4px;
     }
 
+    .right-seg span:not(.bold) {
+        vertical-align: -webkit-baseline-middle;
+        color: #21217e;
+
+    }
+
+    .right-seg span.bold {
+        display: block;
+    }
+
+    .hlter {
+        background-color: oldlace;
+    }
+
+    .ch-selector {
+        color: red;
+    }
+
     ::-webkit-scrollbar {
         width: 5px;
     }
@@ -126,6 +143,7 @@
         var decId5;
         var decId6;
         var decId7;
+        var mt;
 
         errors = [[27, 5, 27, 10], [53, 5, 53, 10], [92, 14, 92, 19], [109, 5, 109, 10]];
         errorIndex = -1;
@@ -454,14 +472,44 @@
                 provideHover: function (model, position) {
                     var word = model.getWordAtPosition(position);
                     var line = model.getLineContent(position.lineNumber);
-                    console.log(line);
+                    console.log(position);
+                    // console.log(line);
                     console.log(word);
+
+                    setID('s' + position.lineNumber);
+                    const boxes = document.querySelectorAll('.hlter');
+
+                    boxes.forEach(box => {
+                        box.classList.remove('hlter');
+
+                    });
+                    setTimeout(() => {
+                        if (document.getElementById('s' + position.lineNumber)) {
+                            document.getElementById('s' + position.lineNumber).classList.add('hlter');
+                            document.getElementById('s' + position.lineNumber).scrollIntoView();
+                            var count = document.getElementById('s' + position.lineNumber).getElementsByTagName('div')
+                            for (c = 0; c < count.length; c++) {
+                                if (mt === count[c].innerText) {
+                                    const boxes2 = document.querySelectorAll('.ch-selector');
+
+                                    boxes2.forEach(box => {
+                                        box.classList.remove('ch-selector');
+
+                                    });
+                                    count[c].classList.add('ch-selector');
+                                }
+                            }
+                        }
+                    }, 100);
+
                     if (segments.indexOf(line.split('*')[0]) !== -1) {
                         var currentsegment = segments[segments.indexOf(line.split('*')[0])];
                         var childs = v.filter(x => x.name === currentsegment)[0].children;
                         var words = childs.map(x => x.value);
                         if (word) {
                             if (word.word === currentsegment) {
+                                console.log(v.filter(x => x.name === currentsegment)[0].AN);
+                                mt = v.filter(x => x.name === currentsegment)[0].AN;
                                 return {
                                     range: new monaco.Range(position.lineNumber, word.startColumn, position.lineNumber, word.endColumn),
                                     contents: [
@@ -473,6 +521,8 @@
                                     ],
                                 };
                             } else if (words.indexOf(word.word) !== -1) {
+                                console.log(v.filter(x => x.name === currentsegment)[0].children.filter(y => y.value === word.word)[0].AN);
+                                var mt = v.filter(x => x.name === currentsegment)[0].children.filter(y => y.value === word.word)[0].AN;
                                 return {
                                     range: new monaco.Range(position.lineNumber, word.startColumn, position.lineNumber, word.endColumn),
                                     contents: [
@@ -645,7 +695,7 @@
                     <div class="child-seg flex-display" onmouseover="onHover(1,5,1,7)" onmouseout="clearAll()">
                         <div class="left-seg">Authorization Information Qualifier</div>
                         <div class="right-seg">
-                            <span class="bold">00</span>
+                            <span class="bold" onmouseover="" onmouseout="">00</span>
                             <span>No Authorization Information Present (No Meaningful Information in I02)</span>
                         </div>
                     </div>
@@ -658,7 +708,7 @@
                     <div class="child-seg flex-display" onmouseover="onHover(1,19,1,21)" onmouseout="clearAll()">
                         <div class="left-seg">Security Information Qualifier</div>
                         <div class="right-seg">
-                            <span class="bold">00</span>
+                            <span class="bold" onmouseover="" onmouseout="">00</span>
                             <span>No Security Information Present (No Meaningful Information in I04)</span>
                         </div>
                     </div>
@@ -671,56 +721,56 @@
                     <div class="child-seg flex-display" onmouseover="onHover(1,33,1,35)" onmouseout="clearAll()">
                         <div class="left-seg">Interchange ID Qualifier</div>
                         <div class="right-seg">
-                            <span class="bold">01</span>
+                            <span class="bold" onmouseover="" onmouseout="">01</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,36,1,51)" onmouseout="clearAll()">
                         <div class="left-seg">Interchange Sender ID</div>
                         <div class="right-seg">
-                            <span class="bold">123456789</span>
+                            <span class="bold" onmouseover="" onmouseout="">123456789</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,52,1,54)" onmouseout="clearAll()">
                         <div class="left-seg">Interchange ID Qualifier</div>
                         <div class="right-seg">
-                            <span class="bold">01</span>
+                            <span class="bold" onmouseover="" onmouseout="">01</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,55,1,70)" onmouseout="clearAll()">
                         <div class="left-seg">Interchange Sender ID</div>
                         <div class="right-seg">
-                            <span class="bold">987654321</span>
+                            <span class="bold" onmouseover="" onmouseout="">987654321</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,71,1,77)" onmouseout="clearAll()">
                         <div class="left-seg">Interchange Date</div>
                         <div class="right-seg">
-                            <span class="bold">2002-11-06</span>
+                            <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,78,1,82)" onmouseout="clearAll()">
                         <div class="left-seg">Interchange Time</div>
                         <div class="right-seg">
-                            <span class="bold">10:03</span>
+                            <span class="bold" onmouseover="" onmouseout="">10:03</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,83,1,84)" onmouseout="clearAll()">
                         <div class="left-seg">Repeatation separator</div>
                         <div class="right-seg">
-                            <span class="bold">U</span>
+                            <span class="bold" onmouseover="" onmouseout="">U</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,85,1,90)" onmouseout="clearAll()">
                         <div class="left-seg">Interchange Control Version Number Code</div>
                         <div class="right-seg">
-                            <span class="bold">00403</span>
+                            <span class="bold" onmouseover="" onmouseout="">00403</span>
                             <span></span>
                         </div>
                     </div>
@@ -728,28 +778,28 @@
                     <div class="child-seg flex-display" onmouseover="onHover(1,91,1,100)" onmouseout="clearAll()">
                         <div class="left-seg">Interchange Control Number</div>
                         <div class="right-seg">
-                            <span class="bold">000000009</span>
+                            <span class="bold" onmouseover="" onmouseout="">000000009</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,101,1,102)" onmouseout="clearAll()">
                         <div class="left-seg">Acknowledgment Requested Code</div>
                         <div class="right-seg">
-                            <span class="bold">1</span>
+                            <span class="bold" onmouseover="" onmouseout="">1</span>
                             <span>Acknowledgment Requested</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,103,1,104)" onmouseout="clearAll()">
                         <div class="left-seg">Interchange Usage Indicator Code</div>
                         <div class="right-seg">
-                            <span class="bold">T</span>
+                            <span class="bold" onmouseover="" onmouseout="">T</span>
                             <span>Test data</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,105,1,106)" onmouseout="clearAll()">
                         <div class="left-seg">Component Element Separator</div>
                         <div class="right-seg">
-                            <span class="bold">:</span>
+                            <span class="bold" onmouseover="" onmouseout="">:</span>
                             <span></span>
                         </div>
                     </div>
@@ -770,20 +820,20 @@
                     <div class="child-seg flex-display" onmouseover="onHover(2,4,2,6)" onmouseout="clearAll()">
                         <div class="left-seg">Functional Identifier Code</div>
                         <div class="right-seg">
-                            <span class="bold">PO</span>
+                            <span class="bold" onmouseover="" onmouseout="">PO</span>
                             <span>Purchase order 850</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,6,2,16)" onmouseout="clearAll()">
 
                         <div class="left-seg">Application Sender's Code</div>
-                        <div class="right-seg"><span class="bold">123890123</span></div>
+                        <div class="right-seg"><span class="bold" onmouseover="" onmouseout="">123890123</span></div>
 
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,17,2,26)" onmouseout="clearAll()">
                         <div class="left-seg">Application Receiver's Code</div>
                         <div class="right-seg">
-                            <span class="bold">123891123</span>
+                            <span class="bold" onmouseover="" onmouseout="">123891123</span>
                             <span></span>
                         </div>
                     </div>
@@ -796,28 +846,28 @@
                     <div class="child-seg flex-display" onmouseover="onHover(2,36,2,40)" onmouseout="clearAll()">
                         <div class="left-seg">Time</div>
                         <div class="right-seg">
-                            <span class="bold">10:03</span>
+                            <span class="bold" onmouseover="" onmouseout="">10:03</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,41,2,42)" onmouseout="clearAll()">
                         <div class="left-seg">Group Control Number</div>
                         <div class="right-seg">
-                            <span class="bold">7</span>
+                            <span class="bold" onmouseover="" onmouseout="">7</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,43,2,44)" onmouseout="clearAll()">
                         <div class="left-seg">Responsible Agency Code</div>
                         <div class="right-seg">
-                            <span class="bold">T</span>
+                            <span class="bold" onmouseover="" onmouseout="">T</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,45,2,51)" onmouseout="clearAll()">
                         <div class="left-seg">Version / Release / Industry Identifier Code</div>
                         <div class="right-seg">
-                            <span class="bold">004010</span>
+                            <span class="bold" onmouseover="" onmouseout="">004010</span>
                             <span></span>
                         </div>
                     </div>
@@ -844,7 +894,7 @@
                         <div class="left-seg" title="*Required  &#013; &#013; Code uniquely identifying a transacion set
                         ">Transaction Set Identifier Code</div>
                         <div class="right-seg">
-                            <span class="bold">850</span>
+                            <span class="bold" onmouseover="" onmouseout="">850</span>
                             <span>Purchase Order</span>
                         </div>
                     </div>
@@ -854,7 +904,7 @@
                             title="*Required &#013; &#013; Min:4 Max:9 &#013; &#013; Identifying control number that must be unique within the transacion set functional group assigned by the organiser for a transacion set">
                             Transaction Set Control Number</div>
                         <div class="right-seg">
-                            <span class="bold">0001</span>
+                            <span class="bold" onmouseover="" onmouseout="">0001</span>
                         </div>
 
                     </div>
@@ -883,7 +933,7 @@
                             title="*Required &#013; &#013; Code identifying purpose of transacion set">Transaction Set
                             Purpose Code</div>
                         <div class="right-seg">
-                            <span class="bold">01</span>
+                            <span class="bold" onmouseover="" onmouseout="">01</span>
                             <span>Code identifying purpose of transaction set</span>
                         </div>
                     </div>
@@ -893,7 +943,7 @@
                             title="*Required &#013; &#013; Code specifying the type of purchase order">Purchase Order
                             Type Code</div>
                         <div class="right-seg">
-                            <span class="bold">BK</span>
+                            <span class="bold" onmouseover="" onmouseout="">BK</span>
                             <span>Code specifying the type of Purchase Order</span>
                         </div>
 
@@ -903,7 +953,7 @@
                             title="*Required &#013; &#013; Min:1 Max:22 &#013; &#013; Identifying number of purchase order">
                             Purchase Order Number</div>
                         <div class="right-seg">
-                            <span class="bold">99AKDF9DAL393</span>
+                            <span class="bold" onmouseover="" onmouseout="">99AKDF9DAL393</span>
                             <span>Identifying number for Purchase Order assigned by the orderer/purchaser</span>
                         </div>
                     </div>
@@ -913,7 +963,7 @@
                             title="Min:1 Max:30 &#013; &#013; Number identifying a release against a purchase order">
                             Release Number</div>
                         <div class="right-seg">
-                            <span class="bold">39483920193843</span>
+                            <span class="bold" onmouseover="" onmouseout="">39483920193843</span>
                             <span>Number identifying a release against a Purchase Order previously placed by the parties
                                 involved in the transaction</span>
                         </div>
@@ -922,49 +972,49 @@
                     <div class="child-seg flex-display" onmouseover="onHover(4,40,4,48)" onmouseout="clearAll()">
                         <div class="left-seg">Date</div>
                         <div class="right-seg">
-                            <span class="bold">2002-11-06</span>
+                            <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span>Date expressed as CCYYMMDD</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,49,4,58)" onmouseout="clearAll()">
                         <div class="left-seg">Contract Number</div>
                         <div class="right-seg">
-                            <span class="bold">AN3920943</span>
+                            <span class="bold" onmouseover="" onmouseout="">AN3920943</span>
                             <span>Contract Number</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,59,4,61)" onmouseout="clearAll()">
                         <div class="left-seg">Acknowledgment Type</div>
                         <div class="right-seg">
-                            <span class="bold">AC</span>
+                            <span class="bold" onmouseover="" onmouseout="">AC</span>
                             <span>Code specifying the type of acknowledgment</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,62,4,65)" onmouseout="clearAll()">
                         <div class="left-seg">Invoice Type Code</div>
                         <div class="right-seg">
-                            <span class="bold">IBM</span>
+                            <span class="bold" onmouseover="" onmouseout="">IBM</span>
                             <span>Code defining the method by which invoices are to be processed</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,66,4,68)" onmouseout="clearAll()">
                         <div class="left-seg">Contract Type Code</div>
                         <div class="right-seg">
-                            <span class="bold">02</span>
+                            <span class="bold" onmouseover="" onmouseout="">02</span>
                             <span>Code identifying a contract type</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,69,4,71)" onmouseout="clearAll()">
                         <div class="left-seg">Purchase Category</div>
                         <div class="right-seg">
-                            <span class="bold">AE</span>
+                            <span class="bold" onmouseover="" onmouseout="">AE</span>
                             <span>Code identifying the broad category of products or services being acquired</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,72,4,74)" onmouseout="clearAll()">
                         <div class="left-seg">Security Level Code</div>
                         <div class="right-seg">
-                            <span class="bold">02</span>
+                            <span class="bold" onmouseover="" onmouseout="">02</span>
                             <span>Code indicating the level of confidentiality assigned by the sender to the information
                                 following</span>
                         </div>
@@ -972,7 +1022,7 @@
                     <div class="child-seg flex-display" onmouseover="onHover(4,75,4,77)" onmouseout="clearAll()">
                         <div class="left-seg">Transaction Type Code</div>
                         <div class="right-seg">
-                            <span class="bold">BA</span>
+                            <span class="bold" onmouseover="" onmouseout="">BA</span>
                             <span>Code specifying the type of transaction</span>
                         </div>
                     </div>
@@ -1015,7 +1065,7 @@
                     <div class="child-seg flex-display" onmouseover="onHover(5,5,5,7)" onmouseout="clearAll()">
                         <div class="left-seg">Entity Identifier Code</div>
                         <div class="right-seg">
-                            <span class="bold">AC</span>
+                            <span class="bold" onmouseover="" onmouseout="">AC</span>
                             <span>Code identifying an organizational entity, a physical location, property or an
                                 individual</span>
                         </div>
@@ -1024,7 +1074,7 @@
 
                         <div class="left-seg">Currency Code</div>
                         <div class="right-seg">
-                            <span class="bold">USD</span>
+                            <span class="bold" onmouseover="" onmouseout="">USD</span>
                             <span>Code (Standard ISO) for country in whose currency the charges are specified</span>
                         </div>
 
@@ -1032,7 +1082,7 @@
                     <div class="child-seg flex-display" onmouseover="onHover(5,12,5,17)" onmouseout="clearAll()">
                         <div class="left-seg">Exchange Rate</div>
                         <div class="right-seg">
-                            <span class="bold">.2939</span>
+                            <span class="bold" onmouseover="" onmouseout="">.2939</span>
                             <span>Value to be used as a multiplier conversion factor to convert monetary value from one
                                 currency to another</span>
                         </div>
@@ -1041,7 +1091,7 @@
 
                         <div class="left-seg">Entity Identifier Code</div>
                         <div class="right-seg">
-                            <span class="bold">SE</span>
+                            <span class="bold" onmouseover="" onmouseout="">SE</span>
                             <span>Code identifying an organizational entity, a physical location, property or an
                                 individual</span>
                         </div>
@@ -1050,35 +1100,35 @@
                     <div class="child-seg flex-display" onmouseover="onHover(5,21,5,24)" onmouseout="clearAll()">
                         <div class="left-seg">Currency Code</div>
                         <div class="right-seg">
-                            <span class="bold">USD</span>
+                            <span class="bold" onmouseover="" onmouseout="">USD</span>
                             <span>Code (Standard ISO) for country in whose currency the charges are specified</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,25,5,28)" onmouseout="clearAll()">
                         <div class="left-seg">Currency Market/Exchange Code</div>
                         <div class="right-seg">
-                            <span class="bold">IMF</span>
+                            <span class="bold" onmouseover="" onmouseout="">IMF</span>
                             <span>Code identifying the market upon which the currency exchange rate is based</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,29,5,32)" onmouseout="clearAll()">
                         <div class="left-seg">Date/Time Qualifier</div>
                         <div class="right-seg">
-                            <span class="bold">002</span>
+                            <span class="bold" onmouseover="" onmouseout="">002</span>
                             <span>Code specifying type of date or time, or both date and time</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,33,5,41)" onmouseout="clearAll()">
                         <div class="left-seg">Date</div>
                         <div class="right-seg">
-                            <span class="bold">2002-11-06</span>
+                            <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span>Date expressed as CCYYMMDD</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,42,5,46)" onmouseout="clearAll()">
                         <div class="left-seg">Time</div>
                         <div class="right-seg">
-                            <span class="bold">16:15</span>
+                            <span class="bold" onmouseover="" onmouseout="">16:15</span>
                             <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
                                 HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
                                 DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
@@ -1088,21 +1138,21 @@
                     <div class="child-seg flex-display" onmouseover="onHover(5,47,5,50)" onmouseout="clearAll()">
                         <div class="left-seg">Date/Time Qualifier</div>
                         <div class="right-seg">
-                            <span class="bold">021</span>
+                            <span class="bold" onmouseover="" onmouseout="">021</span>
                             <span>Code specifying type of date or time, or both date and time</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,51,5,59)" onmouseout="clearAll()">
                         <div class="left-seg">Date</div>
                         <div class="right-seg">
-                            <span class="bold">2002-11-06</span>
+                            <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span>Date expressed as CCYYMMDD</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,60,5,64)" onmouseout="clearAll()">
                         <div class="left-seg">Time</div>
                         <div class="right-seg">
-                            <span class="bold">07:18</span>
+                            <span class="bold" onmouseover="" onmouseout="">07:18</span>
                             <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
                                 HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
                                 DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
@@ -1112,21 +1162,21 @@
                     <div class="child-seg flex-display" onmouseover="onHover(5,65,5,68)" onmouseout="clearAll()">
                         <div class="left-seg">Date/Time Qualifier</div>
                         <div class="right-seg">
-                            <span class="bold">038</span>
+                            <span class="bold" onmouseover="" onmouseout="">038</span>
                             <span>Code specifying type of date or time, or both date and time</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,69,5,77)" onmouseout="clearAll()">
                         <div class="left-seg">Date</div>
                         <div class="right-seg">
-                            <span class="bold">2002-11-06</span>
+                            <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span>Date expressed as CCYYMMDD</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,78,5,82)" onmouseout="clearAll()">
                         <div class="left-seg">Time</div>
                         <div class="right-seg">
-                            <span class="bold">19:52</span>
+                            <span class="bold" onmouseover="" onmouseout="">19:52</span>
                             <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
                                 HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
                                 DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
@@ -1136,21 +1186,21 @@
                     <div class="child-seg flex-display" onmouseover="onHover(5,83,5,86)" onmouseout="clearAll()">
                         <div class="left-seg">Date/Time Qualifier</div>
                         <div class="right-seg">
-                            <span class="bold">002</span>
+                            <span class="bold" onmouseover="" onmouseout="">002</span>
                             <span>Code specifying type of date or time, or both date and time</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,87,5,95)" onmouseout="clearAll()">
                         <div class="left-seg">Date</div>
                         <div class="right-seg">
-                            <span class="bold">2002-11-06</span>
+                            <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span>Date expressed as CCYYMMDD</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,96,5,100)" onmouseout="clearAll()">
                         <div class="left-seg">Time</div>
                         <div class="right-seg">
-                            <span class="bold">16:15</span>
+                            <span class="bold" onmouseover="" onmouseout="">16:15</span>
                             <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
                                 HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
                                 DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
@@ -1160,21 +1210,21 @@
                     <div class="child-seg flex-display" onmouseover="onHover(5,101,5,104)" onmouseout="clearAll()">
                         <div class="left-seg">Date/Time Qualifier</div>
                         <div class="right-seg">
-                            <span class="bold">021</span>
+                            <span class="bold" onmouseover="" onmouseout="">021</span>
                             <span>Code specifying type of date or time, or both date and time</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,105,5,113)" onmouseout="clearAll()">
                         <div class="left-seg">Date</div>
                         <div class="right-seg">
-                            <span class="bold">2002-11-06</span>
+                            <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span>Date expressed as CCYYMMDD</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,114,5,118)" onmouseout="clearAll()">
                         <div class="left-seg">Time</div>
                         <div class="right-seg">
-                            <span class="bold">07:18</span>
+                            <span class="bold" onmouseover="" onmouseout="">07:18</span>
                             <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
                                 HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
                                 DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
@@ -1208,7 +1258,7 @@
                     <div class="child-seg flex-display" onmouseover="onHover(6,5,6,7)" onmouseout="clearAll()">
                         <div class="left-seg">Reference Identification Qualifier</div>
                         <div class="right-seg">
-                            <span class="bold">AB</span>
+                            <span class="bold" onmouseover="" onmouseout="">AB</span>
                             <span>Code qualifying the Reference Identification</span>
                         </div>
                     </div>
@@ -1216,7 +1266,7 @@
 
                         <div class="left-seg">Reference Identification</div>
                         <div class="right-seg">
-                            <span class="bold">3920394930203</span>
+                            <span class="bold" onmouseover="" onmouseout="">3920394930203</span>
                             <span>Reference information as defined for a particular Transaction Set or as specified by
                                 the Reference Identification Qualifier</span>
                         </div>
@@ -1225,7 +1275,7 @@
                     <div class="child-seg flex-display" onmouseover="onHover(6,22,6,37)" onmouseout="clearAll()">
                         <div class="left-seg">Description</div>
                         <div class="right-seg">
-                            <span class="bold">GENERAL PURPOSE</span>
+                            <span class="bold" onmouseover="" onmouseout="">GENERAL PURPOSE</span>
                             <span>A free-form description to clarify the related data elements and their content</span>
                         </div>
                     </div>
@@ -1254,7 +1304,7 @@
                                 onmouseout="clearAll()">
                                 <div class="left-seg">Reference Identification Qualifier</div>
                                 <div class="right-seg">
-                                    <span class="bold">BT</span>
+                                    <span class="bold" onmouseover="" onmouseout="">BT</span>
                                     <span>Code qualifying the Reference Identification</span>
                                 </div>
                             </div>
@@ -1262,7 +1312,7 @@
                                 onmouseout="clearAll()">
                                 <div class="left-seg">Reference Identification</div>
                                 <div class="right-seg">
-                                    <span class="bold">12389112300123890123768958473</span>
+                                    <span class="bold" onmouseover="" onmouseout="">12389112300123890123768958473</span>
                                     <span>Reference information as defined for a particular Transaction Set or as
                                         specified by the Reference Identification Qualifier</span>
                                 </div>
@@ -1272,7 +1322,7 @@
                                 onmouseout="clearAll()">
                                 <div class="left-seg">Reference Identification Qualifier</div>
                                 <div class="right-seg">
-                                    <span class="bold">CM</span>
+                                    <span class="bold" onmouseover="" onmouseout="">CM</span>
                                     <span>Code qualifying the Reference Identification</span>
                                 </div>
                             </div>
@@ -1280,7 +1330,7 @@
                                 onmouseout="clearAll()">
                                 <div class="left-seg">Reference Identification Qualifier</div>
                                 <div class="right-seg">
-                                    <span class="bold">500</span>
+                                    <span class="bold" onmouseover="" onmouseout="">500</span>
                                     <span>Code qualifying the Reference Identification</span>
                                 </div>
                             </div>
@@ -1288,7 +1338,7 @@
                                 onmouseout="clearAll()">
                                 <div class="left-seg">Reference Identification Qualifier</div>
                                 <div class="right-seg">
-                                    <span class="bold">AB</span>
+                                    <span class="bold" onmouseover="" onmouseout="">AB</span>
                                     <span>Code qualifying the Reference Identification</span>
                                 </div>
                             </div>
@@ -1296,7 +1346,7 @@
                                 onmouseout="clearAll()">
                                 <div class="left-seg">Reference Identification Qualifier</div>
                                 <div class="right-seg">
-                                    <span class="bold">3920394930203</span>
+                                    <span class="bold" onmouseover="" onmouseout="">3920394930203</span>
                                     <span>Code qualifying the Reference Identification</span>
                                 </div>
                             </div>
@@ -1496,7 +1546,7 @@
                             SAC
                         </div>
                         <div class="right-seg">
-                            <span class="bold"></span>
+                            <span class="bold" onmouseover="" onmouseout=""></span>
                             <span>
                                 Service, Promotion, Allowance, or Charge Information
                             </span>
@@ -1508,14 +1558,14 @@
                         <div class="child-seg flex-display" onmouseover="onHover(14,5,14,6)" onmouseout="clearAll()">
                             <div class="left-seg">Allowance or Charge Indicator</div>
                             <div class="right-seg">
-                                <span class="bold">A</span>
+                                <span class="bold" onmouseover="" onmouseout="">A</span>
                                 <span>Allowance</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,7,14,11)" onmouseout="clearAll()">
                             <div class="left-seg">Service, Promotion, Allowance, or Charge Code</div>
                             <div class="right-seg">
-                                <span class="bold">A010</span>
+                                <span class="bold" onmouseover="" onmouseout="">A010</span>
                                 <span>Absolute Minimum Charge</span>
                             </div>
                         </div>
@@ -1523,49 +1573,49 @@
                         <div class="child-seg flex-display" onmouseover="onHover(14,12,14,14)" onmouseout="clearAll()">
                             <div class="left-seg">Agency Qualifier Code</div>
                             <div class="right-seg">
-                                <span class="bold">AA</span>
+                                <span class="bold" onmouseover="" onmouseout="">AA</span>
                                 <span>Aluminum Association</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,15,14,16)" onmouseout="clearAll()">
                             <div class="left-seg">Agency Service, Promotion, Allowance, or Charge Code</div>
                             <div class="right-seg">
-                                <span class="bold">1</span>
+                                <span class="bold" onmouseover="" onmouseout="">1</span>
                                 <span></span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,17,14,22)" onmouseout="clearAll()">
                             <div class="left-seg">Amount</div>
                             <div class="right-seg">
-                                <span class="bold">50000</span>
+                                <span class="bold" onmouseover="" onmouseout="">50000</span>
                                 <span></span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,23,14,24)" onmouseout="clearAll()">
                             <div class="left-seg">Allowance/Charge Percent Qualifier</div>
                             <div class="right-seg">
-                                <span class="bold">1</span>
+                                <span class="bold" onmouseover="" onmouseout="">1</span>
                                 <span>1Item List Cost</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,25,14,28)" onmouseout="clearAll()">
                             <div class="left-seg">Percent</div>
                             <div class="right-seg">
-                                <span class="bold">.25</span>
+                                <span class="bold" onmouseover="" onmouseout="">.25</span>
                                 <span></span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,29,14,33)" onmouseout="clearAll()">
                             <div class="left-seg">Rate</div>
                             <div class="right-seg">
-                                <span class="bold">5000</span>
+                                <span class="bold" onmouseover="" onmouseout="">5000</span>
                                 <span></span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,29,14,33)" onmouseout="clearAll()">
                             <div class="left-seg">Unit or Basis for Measurement Code</div>
                             <div class="right-seg">
-                                <span class="bold">HB</span>
+                                <span class="bold" onmouseover="" onmouseout="">HB</span>
                                 <span>Hundred Boxes</span>
                             </div>
                         </div>
@@ -1580,7 +1630,7 @@
                             CUR
                         </div>
                         <div class="right-seg">
-                            <span class="bold"></span>
+                            <span class="bold" onmouseover="" onmouseout=""></span>
                             <span>
                                 Currency
                             </span>
@@ -1593,7 +1643,7 @@
                         <div class="child-seg flex-display" onmouseover="onHover(15,5,15,7)" onmouseout="clearAll()">
                             <div class="left-seg">Entity Identifier Code</div>
                             <div class="right-seg">
-                                <span class="bold">BK</span>
+                                <span class="bold" onmouseover="" onmouseout="">BK</span>
                                 <span>Code identifying an organizational entity, a physical location, property or an
                                     individual</span>
                             </div>
@@ -1603,7 +1653,7 @@
 
                             <div class="left-seg">Currency Code</div>
                             <div class="right-seg">
-                                <span class="bold">USD</span>
+                                <span class="bold" onmouseover="" onmouseout="">USD</span>
                                 <span>Code (Standard ISO) for country in whose currency the charges are specified</span>
                             </div>
 
@@ -1611,7 +1661,7 @@
                         <div class="child-seg flex-display" onmouseover="onHover(15,12,15,17)" onmouseout="clearAll()">
                             <div class="left-seg">Exchange Rate</div>
                             <div class="right-seg">
-                                <span class="bold">1.259</span>
+                                <span class="bold" onmouseover="" onmouseout="">1.259</span>
                                 <span>Value to be used as a multiplier conversion factor to convert monetary value from
                                     one
                                     currency to another</span>
@@ -1621,7 +1671,7 @@
 
                             <div class="left-seg">Entity Identifier Code</div>
                             <div class="right-seg">
-                                <span class="bold">AC</span>
+                                <span class="bold" onmouseover="" onmouseout="">AC</span>
                                 <span>Code identifying an organizational entity, a physical location, property or an
                                     individual</span>
                             </div>
@@ -1630,35 +1680,35 @@
                         <div class="child-seg flex-display" onmouseover="onHover(15,21,15,24)" onmouseout="clearAll()">
                             <div class="left-seg">Currency Code</div>
                             <div class="right-seg">
-                                <span class="bold">USD</span>
+                                <span class="bold" onmouseover="" onmouseout="">USD</span>
                                 <span>Code (Standard ISO) for country in whose currency the charges are specified</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,25,15,28)" onmouseout="clearAll()">
                             <div class="left-seg">Currency Market/Exchange Code</div>
                             <div class="right-seg">
-                                <span class="bold">LNF</span>
+                                <span class="bold" onmouseover="" onmouseout="">LNF</span>
                                 <span>Code identifying the market upon which the currency exchange rate is based</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,29,15,32)" onmouseout="clearAll()">
                             <div class="left-seg">Date/Time Qualifier</div>
                             <div class="right-seg">
-                                <span class="bold">002</span>
+                                <span class="bold" onmouseover="" onmouseout="">002</span>
                                 <span>Code specifying type of date or time, or both date and time</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,33,15,41)" onmouseout="clearAll()">
                             <div class="left-seg">Date</div>
                             <div class="right-seg">
-                                <span class="bold">2002-11-06</span>
+                                <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                                 <span>Date expressed as CCYYMMDD</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,42,15,46)" onmouseout="clearAll()">
                             <div class="left-seg">Time</div>
                             <div class="right-seg">
-                                <span class="bold">19:52</span>
+                                <span class="bold" onmouseover="" onmouseout="">19:52</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
                                     HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59)
                                     and
@@ -1670,21 +1720,21 @@
                         <div class="child-seg flex-display" onmouseover="onHover(15,47,15,50)" onmouseout="clearAll()">
                             <div class="left-seg">Date/Time Qualifier</div>
                             <div class="right-seg">
-                                <span class="bold">002</span>
+                                <span class="bold" onmouseover="" onmouseout="">002</span>
                                 <span>Code specifying type of date or time, or both date and time</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,51,15,59)" onmouseout="clearAll()">
                             <div class="left-seg">Date</div>
                             <div class="right-seg">
-                                <span class="bold">2002-11-06</span>
+                                <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                                 <span>Date expressed as CCYYMMDD</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,60,15,64)" onmouseout="clearAll()">
                             <div class="left-seg">Time</div>
                             <div class="right-seg">
-                                <span class="bold">16:15</span>
+                                <span class="bold" onmouseover="" onmouseout="">16:15</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
                                     HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59)
                                     and
@@ -1696,21 +1746,21 @@
                         <div class="child-seg flex-display" onmouseover="onHover(15,65,15,68)" onmouseout="clearAll()">
                             <div class="left-seg">Date/Time Qualifier</div>
                             <div class="right-seg">
-                                <span class="bold">021</span>
+                                <span class="bold" onmouseover="" onmouseout="">021</span>
                                 <span>Code specifying type of date or time, or both date and time</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,69,15,77)" onmouseout="clearAll()">
                             <div class="left-seg">Date</div>
                             <div class="right-seg">
-                                <span class="bold">2002-11-06</span>
+                                <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                                 <span>Date expressed as CCYYMMDD</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,78,15,82)" onmouseout="clearAll()">
                             <div class="left-seg">Time</div>
                             <div class="right-seg">
-                                <span class="bold">07:18</span>
+                                <span class="bold" onmouseover="" onmouseout="">07:18</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
                                     HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59)
                                     and
@@ -1722,21 +1772,21 @@
                         <div class="child-seg flex-display" onmouseover="onHover(15,83,15,86)" onmouseout="clearAll()">
                             <div class="left-seg">Date/Time Qualifier</div>
                             <div class="right-seg">
-                                <span class="bold">038</span>
+                                <span class="bold" onmouseover="" onmouseout="">038</span>
                                 <span>Code specifying type of date or time, or both date and time</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,87,15,95)" onmouseout="clearAll()">
                             <div class="left-seg">Date</div>
                             <div class="right-seg">
-                                <span class="bold">2002-11-06</span>
+                                <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                                 <span>Date expressed as CCYYMMDD</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,96,15,100)" onmouseout="clearAll()">
                             <div class="left-seg">Time</div>
                             <div class="right-seg">
-                                <span class="bold">19:15</span>
+                                <span class="bold" onmouseover="" onmouseout="">19:15</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
                                     HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59)
                                     and
@@ -1749,7 +1799,7 @@
                             onmouseout="clearAll()">
                             <div class="left-seg">Date/Time Qualifier</div>
                             <div class="right-seg">
-                                <span class="bold">021</span>
+                                <span class="bold" onmouseover="" onmouseout="">021</span>
                                 <span>Code specifying type of date or time, or both date and time</span>
                             </div>
                         </div>
@@ -1757,7 +1807,7 @@
                             onmouseout="clearAll()">
                             <div class="left-seg">Date</div>
                             <div class="right-seg">
-                                <span class="bold">2002-11-06</span>
+                                <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                                 <span>Date expressed as CCYYMMDD</span>
                             </div>
                         </div>
@@ -1765,7 +1815,7 @@
                             onmouseout="clearAll()">
                             <div class="left-seg">Time</div>
                             <div class="right-seg">
-                                <span class="bold">07:18</span>
+                                <span class="bold" onmouseover="" onmouseout="">07:18</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
                                     HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59)
                                     and
