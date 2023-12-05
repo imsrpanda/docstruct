@@ -89,6 +89,13 @@
         font-size: 14px;
     }
 
+    .info-c {
+        color: red;
+        font-size: 16px !important;
+        vertical-align: sub;
+        margin-right: 4px;
+    }
+
     ::-webkit-scrollbar {
         width: 5px;
     }
@@ -120,7 +127,7 @@
         var decId6;
         var decId7;
 
-        errors = [[27,5,27,10],[53,5,53,10],[92,14,92,19],[109,5,109,10]];
+        errors = [[27, 5, 27, 10], [53, 5, 53, 10], [92, 14, 92, 19], [109, 5, 109, 10]];
         errorIndex = -1;
         require.config({ paths: { 'vs': 'https://cdn.jsdelivr.net/npm/monaco-editor@0.27.0/min/vs' } });
 
@@ -575,7 +582,7 @@
 
 
             editor.revealLine(sl);
-            
+
 
         }
 
@@ -592,17 +599,17 @@
         }
 
         function nextError() {
-            if(this.errorIndex<3)
-            this.errorIndex++;
+            if (this.errorIndex < 3)
+                this.errorIndex++;
             editor.revealLine(this.errors[this.errorIndex][0]);
-            document.getElementById('error-num').innerHTML = '<b style="font-weight:600;font-size:14px">'+(this.errorIndex+1)+'</b> of <b style="font-weight:600;font-size:14px">4</b>';
+            document.getElementById('error-num').innerHTML = '<b style="font-weight:600;font-size:14px">' + (this.errorIndex + 1) + '</b> of <b style="font-weight:600;font-size:14px">4</b>';
         }
-        
+
         function prevError() {
-            if(this.errorIndex>0)
-            this.errorIndex--;
+            if (this.errorIndex > 0)
+                this.errorIndex--;
             editor.revealLine(this.errors[this.errorIndex][0]);
-            document.getElementById('error-num').innerHTML = '<b style="font-weight:600;font-size:14px">'+(this.errorIndex+1)+'</b> of <b style="font-weight:600;font-size:14px">4</b>';
+            document.getElementById('error-num').innerHTML = '<b style="font-weight:600;font-size:14px">' + (this.errorIndex + 1) + '</b> of <b style="font-weight:600;font-size:14px">4</b>';
         }
 
 
@@ -619,7 +626,9 @@
     <!-- Container for the editor -->
     <div class="error-label">
 
-        4 Errors <span><i class="material-icons" onclick="nextError()">expand_more</i></span> <span><i class="material-icons" onclick="prevError()">expand_less</i></span>
+        <i class="material-icons info-c"> info </i>4 Errors <span><i class="material-icons"
+                onclick="nextError()">expand_more</i></span> <span><i class="material-icons"
+                onclick="prevError()">expand_less</i></span>
         <span id="error-num"></span>
     </div>
     <div style="display: flex;">
@@ -752,7 +761,7 @@
 
             <div>
                 <div class="seg-bottom" onmouseover="onHover(2,1,2,51)" onmouseout="clearAll()"
-                title="To indicate the beginning of a functional group and to provide control information">
+                    title="To indicate the beginning of a functional group and to provide control information">
                     <i class="material-icons" onclick="setID('s2')">expand_more</i>
                     <span class="segment">GS</span>
                     <span class="top-seg">Functional Group Header</span>
@@ -820,8 +829,7 @@
 
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(3,1,3,12)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(3,1,3,12)" onmouseout="clearAll()" title="
                 To indicate the start of a transaction set and to assign a control number
                 
                 Semantic Notes:
@@ -842,7 +850,9 @@
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(3,8,3,12)" onmouseout="clearAll()">
 
-                        <div class="left-seg" title="*Required &#013; &#013; Min:4 Max:9 &#013; &#013; Identifying control number that must be unique within the transacion set functional group assigned by the organiser for a transacion set">Transaction Set Control Number</div>
+                        <div class="left-seg"
+                            title="*Required &#013; &#013; Min:4 Max:9 &#013; &#013; Identifying control number that must be unique within the transacion set functional group assigned by the organiser for a transacion set">
+                            Transaction Set Control Number</div>
                         <div class="right-seg">
                             <span class="bold">0001</span>
                         </div>
@@ -857,8 +867,7 @@
 
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(4,1,4,77)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(4,1,4,77)" onmouseout="clearAll()" title="
                 To indicate the beginning of the Purchase Order Transaction Set and transmit identifying numbers and dates
                 
                 Semantic Notes:
@@ -870,7 +879,9 @@
                 </div>
                 <div id="s4" class="nodisplay">
                     <div class="child-seg flex-display" onmouseover="onHover(4,5,4,7)" onmouseout="clearAll()">
-                        <div class="left-seg" title="*Required &#013; &#013; Code identifying purpose of transacion set">Transaction Set Purpose Code</div>
+                        <div class="left-seg"
+                            title="*Required &#013; &#013; Code identifying purpose of transacion set">Transaction Set
+                            Purpose Code</div>
                         <div class="right-seg">
                             <span class="bold">01</span>
                             <span>Code identifying purpose of transaction set</span>
@@ -878,7 +889,9 @@
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,8,4,10)" onmouseout="clearAll()">
 
-                        <div class="left-seg" title="*Required &#013; &#013; Code specifying the type of purchase order">Purchase Order Type Code</div>
+                        <div class="left-seg"
+                            title="*Required &#013; &#013; Code specifying the type of purchase order">Purchase Order
+                            Type Code</div>
                         <div class="right-seg">
                             <span class="bold">BK</span>
                             <span>Code specifying the type of Purchase Order</span>
@@ -886,7 +899,9 @@
 
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,11,4,24)" onmouseout="clearAll()">
-                        <div class="left-seg" title="*Required &#013; &#013; Min:1 Max:22 &#013; &#013; Identifying number of purchase order">Purchase Order Number</div>
+                        <div class="left-seg"
+                            title="*Required &#013; &#013; Min:1 Max:22 &#013; &#013; Identifying number of purchase order">
+                            Purchase Order Number</div>
                         <div class="right-seg">
                             <span class="bold">99AKDF9DAL393</span>
                             <span>Identifying number for Purchase Order assigned by the orderer/purchaser</span>
@@ -894,7 +909,9 @@
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,25,4,39)" onmouseout="clearAll()">
 
-                        <div class="left-seg" title="Min:1 Max:30 &#013; &#013; Number identifying a release against a purchase order">Release Number</div>
+                        <div class="left-seg"
+                            title="Min:1 Max:30 &#013; &#013; Number identifying a release against a purchase order">
+                            Release Number</div>
                         <div class="right-seg">
                             <span class="bold">39483920193843</span>
                             <span>Number identifying a release against a Purchase Order previously placed by the parties
@@ -968,8 +985,7 @@
 
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(5,1,5,118)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(5,1,5,118)" onmouseout="clearAll()" title="
                 To specify the currency (dollars, pounds, francs, etc.) used in a transaction
                 
                 Comments
@@ -1175,8 +1191,7 @@
 
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(6,1,6,94)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(6,1,6,94)" onmouseout="clearAll()" title="
                 To specify identifying information
                 
                 Syntax Notes:
@@ -1299,8 +1314,7 @@
             <!-- dummyy..... -->
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(7,1,7,89)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(7,1,7,89)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1315,8 +1329,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(8,1,8,63)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(8,1,8,63)" onmouseout="clearAll()" title="
                 To provide data required for proper notification/determination of applicable taxes applying to the transaction or business described in the transaction
                 
                 Comments
@@ -1338,8 +1351,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(9,1,9,71)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(9,1,9,71)" onmouseout="clearAll()" title="
                 To provide data required for proper notification/determination of applicable taxes applying to the transaction or business described in the transaction
                 
                 Comments
@@ -1361,8 +1373,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(10,1,10,156)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(10,1,10,156)" onmouseout="clearAll()" title="
                 To specify pricing information
                 
                 Comments
@@ -1387,8 +1398,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(11,1,11,174)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(11,1,11,174)" onmouseout="clearAll()" title="
                 To indicate a quantity, and/or amount for an identified period
                 
                 Syntax Notes:
@@ -1406,17 +1416,16 @@
                 
                 Semantic Notes:
                 1. PAM10, PAM11, or PAM12 are used when two dates are required.
-                2. PAM15 indicates whether the monetary amount identified in PAM05 is a net or gross value.  A "Y" indicates amount is a gross value; an "N" indicates amount is a net value.
-                              ">
-                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                2. PAM15 indicates whether the monetary amount identified in PAM05 is a net or gross value.  A " Y"
+                    indicates amount is a gross value; an "N" indicates amount is a net value. ">
+                    <i class=" material-icons" onclick="setID('s5')">expand_more</i>
                     <span class="segment">PAM</span>
                     <span class="top-seg">Period Amount</span>
                 </div>
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(12,1,12,49)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(12,1,12,49)" onmouseout="clearAll()" title="
                 To specify general conditions or requirements of the sale
                 
                 Syntax Notes:
@@ -1438,7 +1447,7 @@
 
             <div>
                 <div class="seg-bottom" onmouseover="onHover(13,1,13,13)" onmouseout="clearAll()"
-                title="To identify a commodity or a group of commodities or a tariff page commodity">
+                    title="To identify a commodity or a group of commodities or a tariff page commodity">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
                     <span class="segment">TC2</span>
                     <span class="top-seg">Commodity</span>
@@ -1446,8 +1455,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(14,1,15,118)" onmouseout="clearAll()"
-                title='
+                <div class="seg-bottom" onmouseover="onHover(14,1,15,118)" onmouseout="clearAll()" title='
                 To request or identify a service, promotion, allowance, or charge; to specify the amount or percentage for the service, promotion, allowance, or charge
                 
                 Comments
@@ -1497,16 +1505,14 @@
                     </div>
 
                     <div id="s14_1 nodisplay">
-                        <div class="child-seg flex-display" onmouseover="onHover(14,5,14,6)"
-                            onmouseout="clearAll()">
+                        <div class="child-seg flex-display" onmouseover="onHover(14,5,14,6)" onmouseout="clearAll()">
                             <div class="left-seg">Allowance or Charge Indicator</div>
                             <div class="right-seg">
                                 <span class="bold">A</span>
                                 <span>Allowance</span>
                             </div>
                         </div>
-                        <div class="child-seg flex-display" onmouseover="onHover(14,7,14,11)"
-                            onmouseout="clearAll()">
+                        <div class="child-seg flex-display" onmouseover="onHover(14,7,14,11)" onmouseout="clearAll()">
                             <div class="left-seg">Service, Promotion, Allowance, or Charge Code</div>
                             <div class="right-seg">
                                 <span class="bold">A010</span>
@@ -1514,56 +1520,49 @@
                             </div>
                         </div>
 
-                        <div class="child-seg flex-display" onmouseover="onHover(14,12,14,14)"
-                            onmouseout="clearAll()">
+                        <div class="child-seg flex-display" onmouseover="onHover(14,12,14,14)" onmouseout="clearAll()">
                             <div class="left-seg">Agency Qualifier Code</div>
                             <div class="right-seg">
                                 <span class="bold">AA</span>
                                 <span>Aluminum Association</span>
                             </div>
                         </div>
-                        <div class="child-seg flex-display" onmouseover="onHover(14,15,14,16)"
-                            onmouseout="clearAll()">
+                        <div class="child-seg flex-display" onmouseover="onHover(14,15,14,16)" onmouseout="clearAll()">
                             <div class="left-seg">Agency Service, Promotion, Allowance, or Charge Code</div>
                             <div class="right-seg">
                                 <span class="bold">1</span>
                                 <span></span>
                             </div>
                         </div>
-                        <div class="child-seg flex-display" onmouseover="onHover(14,17,14,22)"
-                            onmouseout="clearAll()">
+                        <div class="child-seg flex-display" onmouseover="onHover(14,17,14,22)" onmouseout="clearAll()">
                             <div class="left-seg">Amount</div>
                             <div class="right-seg">
                                 <span class="bold">50000</span>
                                 <span></span>
                             </div>
                         </div>
-                        <div class="child-seg flex-display" onmouseover="onHover(14,23,14,24)"
-                            onmouseout="clearAll()">
+                        <div class="child-seg flex-display" onmouseover="onHover(14,23,14,24)" onmouseout="clearAll()">
                             <div class="left-seg">Allowance/Charge Percent Qualifier</div>
                             <div class="right-seg">
                                 <span class="bold">1</span>
                                 <span>1Item List Cost</span>
                             </div>
                         </div>
-                        <div class="child-seg flex-display" onmouseover="onHover(14,25,14,28)"
-                            onmouseout="clearAll()">
+                        <div class="child-seg flex-display" onmouseover="onHover(14,25,14,28)" onmouseout="clearAll()">
                             <div class="left-seg">Percent</div>
                             <div class="right-seg">
                                 <span class="bold">.25</span>
                                 <span></span>
                             </div>
                         </div>
-                        <div class="child-seg flex-display" onmouseover="onHover(14,29,14,33)"
-                            onmouseout="clearAll()">
+                        <div class="child-seg flex-display" onmouseover="onHover(14,29,14,33)" onmouseout="clearAll()">
                             <div class="left-seg">Rate</div>
                             <div class="right-seg">
                                 <span class="bold">5000</span>
                                 <span></span>
                             </div>
                         </div>
-                        <div class="child-seg flex-display" onmouseover="onHover(14,29,14,33)"
-                            onmouseout="clearAll()">
+                        <div class="child-seg flex-display" onmouseover="onHover(14,29,14,33)" onmouseout="clearAll()">
                             <div class="left-seg">Unit or Basis for Measurement Code</div>
                             <div class="right-seg">
                                 <span class="bold">HB</span>
@@ -1573,7 +1572,8 @@
 
                     </div>
 
-                    <div class="flex-display" style="margin: 8px 0px;" onmouseover="onHover(15,1,15,118)" onmouseout="clearAll()">
+                    <div class="flex-display" style="margin: 8px 0px;" onmouseover="onHover(15,1,15,118)"
+                        onmouseout="clearAll()">
 
                         <div class="left-seg">
                             <i class="material-icons" onclick="setID('s14_2')">expand_more</i>
@@ -1598,7 +1598,7 @@
                                     individual</span>
                             </div>
                         </div>
-                        
+
                         <div class="child-seg flex-display" onmouseover="onHover(15,8,15,11)" onmouseout="clearAll()">
 
                             <div class="left-seg">Currency Code</div>
@@ -1606,25 +1606,26 @@
                                 <span class="bold">USD</span>
                                 <span>Code (Standard ISO) for country in whose currency the charges are specified</span>
                             </div>
-    
+
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,12,15,17)" onmouseout="clearAll()">
                             <div class="left-seg">Exchange Rate</div>
                             <div class="right-seg">
                                 <span class="bold">1.259</span>
-                                <span>Value to be used as a multiplier conversion factor to convert monetary value from one
+                                <span>Value to be used as a multiplier conversion factor to convert monetary value from
+                                    one
                                     currency to another</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,18,15,20)" onmouseout="clearAll()">
-    
+
                             <div class="left-seg">Entity Identifier Code</div>
                             <div class="right-seg">
                                 <span class="bold">AC</span>
                                 <span>Code identifying an organizational entity, a physical location, property or an
                                     individual</span>
                             </div>
-    
+
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,21,15,24)" onmouseout="clearAll()">
                             <div class="left-seg">Currency Code</div>
@@ -1659,8 +1660,10 @@
                             <div class="right-seg">
                                 <span class="bold">19:52</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
-                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
-                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59)
+                                    and
+                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and
+                                    DD
                                     = hundredths (00-99)</span>
                             </div>
                         </div>
@@ -1683,8 +1686,10 @@
                             <div class="right-seg">
                                 <span class="bold">16:15</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
-                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
-                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59)
+                                    and
+                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and
+                                    DD
                                     = hundredths (00-99)</span>
                             </div>
                         </div>
@@ -1707,8 +1712,10 @@
                             <div class="right-seg">
                                 <span class="bold">07:18</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
-                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
-                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59)
+                                    and
+                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and
+                                    DD
                                     = hundredths (00-99)</span>
                             </div>
                         </div>
@@ -1731,32 +1738,39 @@
                             <div class="right-seg">
                                 <span class="bold">19:15</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
-                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
-                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59)
+                                    and
+                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and
+                                    DD
                                     = hundredths (00-99)</span>
                             </div>
                         </div>
-                        <div class="child-seg flex-display" onmouseover="onHover(15,101,15,104)" onmouseout="clearAll()">
+                        <div class="child-seg flex-display" onmouseover="onHover(15,101,15,104)"
+                            onmouseout="clearAll()">
                             <div class="left-seg">Date/Time Qualifier</div>
                             <div class="right-seg">
                                 <span class="bold">021</span>
                                 <span>Code specifying type of date or time, or both date and time</span>
                             </div>
                         </div>
-                        <div class="child-seg flex-display" onmouseover="onHover(15,105,15,113)" onmouseout="clearAll()">
+                        <div class="child-seg flex-display" onmouseover="onHover(15,105,15,113)"
+                            onmouseout="clearAll()">
                             <div class="left-seg">Date</div>
                             <div class="right-seg">
                                 <span class="bold">2002-11-06</span>
                                 <span>Date expressed as CCYYMMDD</span>
                             </div>
                         </div>
-                        <div class="child-seg flex-display" onmouseover="onHover(15,114,15,118)" onmouseout="clearAll()">
+                        <div class="child-seg flex-display" onmouseover="onHover(15,114,15,118)"
+                            onmouseout="clearAll()">
                             <div class="left-seg">Time</div>
                             <div class="right-seg">
                                 <span class="bold">07:18</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
-                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and
-                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD
+                                    HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59)
+                                    and
+                                    DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and
+                                    DD
                                     = hundredths (00-99)</span>
                             </div>
                         </div>
@@ -1766,8 +1780,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(16,1,16,89)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(16,1,16,89)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1783,8 +1796,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(17,1,17,29)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(17,1,17,29)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1800,8 +1812,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(18,1,18,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(18,1,18,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1817,8 +1828,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(19,1,19,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(19,1,19,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1834,8 +1844,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(20,1,20,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(20,1,20,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1851,8 +1860,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(21,1,21,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(21,1,21,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1868,8 +1876,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(22,1,22,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(22,1,22,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1885,8 +1892,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(23,1,23,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(23,1,23,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1902,8 +1908,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(24,1,24,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(24,1,24,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1919,8 +1924,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(25,1,25,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(25,1,25,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1936,8 +1940,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(26,1,26,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(26,1,26,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1953,8 +1956,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(27,1,27,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(27,1,27,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1970,8 +1972,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(28,1,28,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(28,1,28,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -1987,8 +1988,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(29,1,29,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(29,1,29,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -2004,8 +2004,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(30,1,30,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(30,1,30,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -2021,8 +2020,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(31,1,31,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(31,1,31,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -2038,8 +2036,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(32,1,32,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(32,1,32,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -2055,8 +2052,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(33,1,33,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(33,1,33,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -2072,8 +2068,7 @@
             </div>
 
             <div>
-                <div class="seg-bottom" onmouseover="onHover(34,1,34,130)" onmouseout="clearAll()"
-                title="
+                <div class="seg-bottom" onmouseover="onHover(34,1,34,130)" onmouseout="clearAll()" title="
                 To identify a person or office to whom administrative communications should be directed
                 
                 Syntax Notes:
@@ -2089,7 +2084,7 @@
             </div>
 
         </div>
-        
+
         <div id="editor" style="height: 500px; width: 50%;"></div>
 
     </div>
