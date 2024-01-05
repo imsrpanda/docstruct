@@ -13,17 +13,20 @@
     }
 
     .segment {
-        border: 1px solid #1776bf;
+        border: 1px solid #d2d9e1;
         padding: 2px 12px;
-        background: #1776bf;
-        color: white;
+        background: #d2d9e1;
+        color: #222;
         border-radius: 12px;
-        font-size: 14px;
+        font-size: 12px;
+        display: inline-block;
+        width: 24px;
+        text-align: center;
     }
 
     .child-seg {
-        margin-left: 32px;
-        border-top: 1px solid #ccc;
+        margin-left: 64px;
+        margin-top: 4px;
         border-bottom: 1px solid #ccc;
         padding: 8px 0px;
     }
@@ -44,7 +47,7 @@
     }
 
     .seg-bottom {
-        margin-bottom: 12px;
+        /* margin-bottom: 12px; */
     }
 
     .seg-bottom:hover {
@@ -66,7 +69,13 @@
     .top-seg {
         font-size: 14px;
         font-weight: 600;
+        border-left: 1px solid #ccc;
+        padding-left: 12px;
+        height: 30px;
+        display: inline-block;
+        margin-bottom: -4px;
     }
+
 
     .nodisplay {
         display: none;
@@ -98,7 +107,7 @@
     .right-seg span:not(.bold) {
         vertical-align: -webkit-baseline-middle;
         color: #21217e;
-
+        font-size: 12px;
     }
 
     .right-seg span.bold {
@@ -106,11 +115,11 @@
     }
 
     .hlter {
-        background-color: oldlace;
+        background-color: #f9fafc;
     }
 
     .ch-selector {
-        color: red;
+        color: #1776bf;
     }
 
     ::-webkit-scrollbar {
@@ -128,6 +137,10 @@
         padding: 4px;
         border-radius: 4px;
     } */
+
+    .seg-bottom i {
+        display: none;
+    }
 </style>
 <html lang="en">
 
@@ -476,7 +489,7 @@
                     // console.log(line);
                     console.log(word);
 
-                    setID('s' + position.lineNumber);
+                    setID2('s' + position.lineNumber, true);
                     const boxes = document.querySelectorAll('.hlter');
 
                     boxes.forEach(box => {
@@ -648,6 +661,12 @@
             }
         }
 
+        function setID2(id, val) {
+            if (document.getElementById(id).classList.contains('nodisplay')) {
+                document.getElementById(id).classList.remove('nodisplay');
+            }
+        }
+
         function nextError() {
             if (this.errorIndex < 3)
                 this.errorIndex++;
@@ -688,7 +707,7 @@
                 <div class="seg-bottom" onmouseover="onHover(1,1,1,106)" onmouseout="clearAll()"
                     title="To start and identyfy an interchange of zero or more functional groups and interchange-related control segments">
                     <i class="material-icons" onclick="setID('s1')">expand_more</i>
-                    <span class="segment">ISA</span>
+                    <span class="segment" onclick="setID('s1')">ISA</span>
                     <span class="top-seg">Interchange Control Header</span>
                 </div>
                 <div id="s1" class="nodisplay">
@@ -813,7 +832,7 @@
                 <div class="seg-bottom" onmouseover="onHover(2,1,2,51)" onmouseout="clearAll()"
                     title="To indicate the beginning of a functional group and to provide control information">
                     <i class="material-icons" onclick="setID('s2')">expand_more</i>
-                    <span class="segment">GS</span>
+                    <span class="segment" onclick="setID('s2')">GS</span>
                     <span class="top-seg">Functional Group Header</span>
                 </div>
                 <div id="s2" class="nodisplay">
@@ -886,7 +905,7 @@
                 1. The transaction set identifier (ST01) used by the translation routines of the interchange partners to select the appropriate transaction set definition (e.g., 810 selects the Invoice Transaction Set).
                             ">
                     <i class="material-icons" onclick="setID('s3')">expand_more</i>
-                    <span class="segment">ST</span>
+                    <span class="segment" onclick="setID('s3')">ST</span>
                     <span class="top-seg">Transaction Set Header</span>
                 </div>
                 <div id="s3" class="nodisplay">
@@ -924,7 +943,7 @@
                 1. BEG05 is the date assigned by the purchaser to purchase order.
                               ">
                     <i class="material-icons" onclick="setID('s4')">expand_more</i>
-                    <span class="segment">BEG</span>
+                    <span class="segment" onclick="setID('s4')">BEG</span>
                     <span class="top-seg">Beginning Segment for Purchase Order</span>
                 </div>
                 <div id="s4" class="nodisplay">
@@ -1058,7 +1077,7 @@
                 14. C2119 Conditional
                               ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
-                    <span class="segment">CUR</span>
+                    <span class="segment" onclick="setID('s5')">CUR</span>
                     <span class="top-seg">Currency</span>
                 </div>
                 <div id="s5" class="nodisplay">
@@ -1251,7 +1270,7 @@
                 1. REF04 contains data relating to the value cited in REF02.
                               ">
                     <i class="material-icons" onclick="setID('s6')">expand_more</i>
-                    <span class="segment">REF</span>
+                    <span class="segment" onclick="setID('s6')">REF</span>
                     <span class="top-seg">Reference Identification</span>
                 </div>
                 <div id="s6" class="nodisplay">
@@ -1286,7 +1305,7 @@
                                 <i class="material-icons" onclick="setID('s6_1')">expand_more</i>
                                 Reference Identifier
                             </div>
-                            <div class="right-seg">
+                            <div class="right-seg" onclick="setID('s6_1')">
                                 <span>
                                     To identify one or more reference numbers or identification numbers as specified by
                                     the Reference Qualifier
@@ -1373,7 +1392,7 @@
                 3. P0708 Paired Multiple
                               ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
-                    <span class="segment">PER</span>
+                    <span class="segment" onclick="setID('s5')">PER</span>
                     <span class="top-seg">Administrative Communications Contact</span>
                 </div>
             </div>
@@ -1395,7 +1414,7 @@
                 6. P1011 Paired Multiple
                               ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
-                    <span class="segment">TAX</span>
+                    <span class="segment" onclick="setID('s5')">TAX</span>
                     <span class="top-seg">Tax Reference</span>
                 </div>
             </div>
@@ -1417,7 +1436,7 @@
                 6. P1011 Paired Multiple
                               ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
-                    <span class="segment">FOB</span>
+                    <span class="segment" onclick="setID('s5')">FOB</span>
                     <span class="top-seg">F.O.B. Related Instructions</span>
                 </div>
             </div>
@@ -1442,7 +1461,7 @@
                 2. CTP08 is the rebate amount.
                               ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
-                    <span class="segment">CTP</span>
+                    <span class="segment" onclick="setID('s5')">CTP</span>
                     <span class="top-seg">Pricing Information</span>
                 </div>
             </div>
@@ -1469,7 +1488,7 @@
                 2. PAM15 indicates whether the monetary amount identified in PAM05 is a net or gross value.  A " Y"
                     indicates amount is a gross value; an "N" indicates amount is a net value. ">
                     <i class=" material-icons" onclick="setID('s5')">expand_more</i>
-                    <span class="segment">PAM</span>
+                    <span class="segment" onclick="setID('s5')">PAM</span>
                     <span class="top-seg">Period Amount</span>
                 </div>
             </div>
@@ -1490,7 +1509,7 @@
                 4. CSH06 identifies the source of the code value in CSH07.
                               ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
-                    <span class="segment">CSH</span>
+                    <span class="segment" onclick="setID('s5')">CSH</span>
                     <span class="top-seg">Sales Requirements</span>
                 </div>
             </div>
@@ -1499,7 +1518,7 @@
                 <div class="seg-bottom" onmouseover="onHover(13,1,13,13)" onmouseout="clearAll()"
                     title="To identify a commodity or a group of commodities or a tariff page commodity">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
-                    <span class="segment">TC2</span>
+                    <span class="segment" onclick="setID('s5')">TC2</span>
                     <span class="top-seg">Commodity</span>
                 </div>
             </div>
@@ -1534,8 +1553,8 @@
                 7. SAC16 is used to identify the language being used in SAC15.
                               '>
                     <i class="material-icons" onclick="setID('s14')">expand_more</i>
-                    <span class="segment">SAC</span> (Loop)
-                    <span class="top-seg">Service, Promotion, Allowance, or Charge Information</span>
+                    <span class="segment" onclick="setID('s14')">SAC</span>
+                    <span class="top-seg"> (Loop) Service, Promotion, Allowance, or Charge Information</span>
                 </div>
 
                 <div id="s14" class="nodisplay child-seg">
@@ -1545,7 +1564,7 @@
                             <i class="material-icons" onclick="setID('s14_1')">expand_more</i>
                             SAC
                         </div>
-                        <div class="right-seg">
+                        <div class="right-seg" onclick="setID('s14_1')">
                             <span class="bold" onmouseover="" onmouseout=""></span>
                             <span>
                                 Service, Promotion, Allowance, or Charge Information
@@ -1629,7 +1648,7 @@
                             <i class="material-icons" onclick="setID('s14_2')">expand_more</i>
                             CUR
                         </div>
-                        <div class="right-seg">
+                        <div class="right-seg" onclick="setID('s14_2')">
                             <span class="bold" onmouseover="" onmouseout=""></span>
                             <span>
                                 Currency
@@ -1839,7 +1858,7 @@
                 3. P0708 Paired Multiple
                               ">
                     <i class="material-icons" onclick="setID('s5')">expand_more</i>
-                    <span class="segment">ITD</span>
+                    <span class="segment" onclick="setID('s15')">ITD</span>
                     <span class="top-seg">
                         Terms of Sale/Deferred Terms of Sale</span>
                 </div>
@@ -2018,6 +2037,65 @@
                     <span class="segment">TD1</span>
                     <span class="top-seg">
                         Carrier Details (Quantity and Weight)</span>
+                </div>
+
+                <div id="s27" class="nodisplay">
+                    <div class="child-seg flex-display" onmouseover="onHover(2,4,2,6)" onmouseout="clearAll()">
+                        <div class="left-seg" style="color: red;">Packaging Code</div>
+                        <div class="right-seg">
+                            <span class="bold" onmouseover="" onmouseout=""></span>
+                            <span>
+                                BAG07</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,6,2,16)" onmouseout="clearAll()">
+
+                        <div class="left-seg">Application Sender's Code</div>
+                        <div class="right-seg"><span class="bold" onmouseover="" onmouseout="">123890123</span></div>
+
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,17,2,26)" onmouseout="clearAll()">
+                        <div class="left-seg">Application Receiver's Code</div>
+                        <div class="right-seg">
+                            <span class="bold" onmouseover="" onmouseout="">123891123</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,27,2,35)" onmouseout="clearAll()">
+
+                        <div class="left-seg">Date</div>
+                        <div class="right-seg">2002-11-06</div>
+
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,36,2,40)" onmouseout="clearAll()">
+                        <div class="left-seg">Time</div>
+                        <div class="right-seg">
+                            <span class="bold" onmouseover="" onmouseout="">10:03</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,41,2,42)" onmouseout="clearAll()">
+                        <div class="left-seg">Group Control Number</div>
+                        <div class="right-seg">
+                            <span class="bold" onmouseover="" onmouseout="">7</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,43,2,44)" onmouseout="clearAll()">
+                        <div class="left-seg">Responsible Agency Code</div>
+                        <div class="right-seg">
+                            <span class="bold" onmouseover="" onmouseout="">T</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(2,45,2,51)" onmouseout="clearAll()">
+                        <div class="left-seg">Version / Release / Industry Identifier Code</div>
+                        <div class="right-seg">
+                            <span class="bold" onmouseover="" onmouseout="">004010</span>
+                            <span></span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
