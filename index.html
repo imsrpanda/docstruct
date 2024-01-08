@@ -6,7 +6,7 @@
     }
 
     .highlightedText {
-        color: #1776bf !important;
+        color: #058192 !important;
         font-weight: 800;
         padding: 0px;
         border-bottom: 1px solid;
@@ -63,7 +63,7 @@
     .bold {
         margin-right: 4px;
         font-size: 12px;
-        color: #1776bf;
+        color: #058192;
     }
 
     .top-seg {
@@ -119,7 +119,7 @@
     }
 
     .ch-selector {
-        color: #1776bf;
+        color: #058192;
         font-weight: 600;
     }
 
@@ -141,6 +141,31 @@
 
     .seg-bottom i {
         display: none;
+    }
+
+    .isa {
+        color: #fff;
+        background-color: #36597D;
+    }
+
+    .gs {
+        color: #fff;
+        background-color: #9a27b7;
+    }
+
+    .st {
+        color: #fff;
+        background-color: #1776bf;
+    }
+
+    .loop-c {
+        background-color: #f7ca73;
+        cursor: pointer;
+    }
+
+    .loop{
+        color: #fff;
+        background-color: #507702;
     }
 </style>
 <html lang="en">
@@ -501,6 +526,16 @@
                         if (document.getElementById('s' + position.lineNumber)) {
                             document.getElementById('s' + position.lineNumber).classList.add('hlter');
                             document.getElementById('s' + position.lineNumber).scrollIntoView();
+                            // window.scrollTo({top: })
+                            // var element = document.getElementById('s' + position.lineNumber);
+                            // var headerOffset = 45;
+                            // var elementPosition = element.getBoundingClientRect().top;
+                            // var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                            // window.scrollTo({
+                            //     top: offsetPosition,
+                            //     behavior: "smooth"
+                            // });
                             var count = document.getElementById('s' + position.lineNumber).getElementsByTagName('div')
                             for (c = 0; c < count.length; c++) {
                                 if (mt === count[c].innerText) {
@@ -555,6 +590,31 @@
 
 
 
+                },
+            });
+
+            monaco.languages.registerFoldingRangeProvider("edi", {
+                provideFoldingRanges: function (model, context, token) {
+                    return [
+                        // comment1
+                        {
+                            start: 1,
+                            end: 200,
+                            kind: monaco.languages.FoldingRangeKind.Comment,
+                        },
+                        // comment2
+                        {
+                            start: 2,
+                            end: 199,
+                            kind: monaco.languages.FoldingRangeKind.Comment,
+                        },
+                        // foldable text
+                        {
+                            start: 3,
+                            end: 198,
+                        },
+
+                    ];
                 },
             });
 
@@ -708,12 +768,14 @@
                 <div class="seg-bottom" onmouseover="onHover(1,1,1,106)" onmouseout="clearAll()"
                     title="To start and identyfy an interchange of zero or more functional groups and interchange-related control segments">
                     <i class="material-icons" onclick="setID('s1')">expand_more</i>
-                    <span class="segment" onclick="setID('s1')">ISA</span>
+                    <span class="segment isa" onclick="setID('s1')">ISA</span>
                     <span class="top-seg">Interchange Control Header</span>
                 </div>
                 <div id="s1" class="nodisplay">
                     <div class="child-seg flex-display" onmouseover="onHover(1,5,1,7)" onmouseout="clearAll()">
-                        <div class="left-seg">Authorization Information Qualifier</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Authorization Information Qualifier</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">00</span>
                             <span>No Authorization Information Present (No Meaningful Information in I02)</span>
@@ -721,12 +783,16 @@
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,8,1,18)" onmouseout="clearAll()">
 
-                        <div class="left-seg">Authorization Information</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Authorization Information</div>
                         <div class="right-seg"></div>
 
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,19,1,21)" onmouseout="clearAll()">
-                        <div class="left-seg">Security Information Qualifier</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Security Information Qualifier</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">00</span>
                             <span>No Security Information Present (No Meaningful Information in I04)</span>
@@ -734,61 +800,79 @@
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,22,1,32)" onmouseout="clearAll()">
 
-                        <div class="left-seg">Security Information</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Security Information</div>
                         <div class="right-seg"></div>
 
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,33,1,35)" onmouseout="clearAll()">
-                        <div class="left-seg">Interchange ID Qualifier</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Interchange ID Qualifier</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">01</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,36,1,51)" onmouseout="clearAll()">
-                        <div class="left-seg">Interchange Sender ID</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Interchange Sender ID</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">123456789</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,52,1,54)" onmouseout="clearAll()">
-                        <div class="left-seg">Interchange ID Qualifier</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Interchange ID Qualifier</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">01</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,55,1,70)" onmouseout="clearAll()">
-                        <div class="left-seg">Interchange Sender ID</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Interchange Sender ID</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">987654321</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,71,1,77)" onmouseout="clearAll()">
-                        <div class="left-seg">Interchange Date</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                            Interchange Date</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,78,1,82)" onmouseout="clearAll()">
-                        <div class="left-seg">Interchange Time</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z"></path></svg>
+                            Interchange Time</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">10:03</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,83,1,84)" onmouseout="clearAll()">
-                        <div class="left-seg">Repeatation separator</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Repeatation separator</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">U</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,85,1,90)" onmouseout="clearAll()">
-                        <div class="left-seg">Interchange Control Version Number Code</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Interchange Control Version Number Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">00403</span>
                             <span></span>
@@ -796,28 +880,36 @@
                     </div>
 
                     <div class="child-seg flex-display" onmouseover="onHover(1,91,1,100)" onmouseout="clearAll()">
-                        <div class="left-seg">Interchange Control Number</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Interchange Control Number</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">000000009</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,101,1,102)" onmouseout="clearAll()">
-                        <div class="left-seg">Acknowledgment Requested Code</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Acknowledgment Requested Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">1</span>
                             <span>Acknowledgment Requested</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,103,1,104)" onmouseout="clearAll()">
-                        <div class="left-seg">Interchange Usage Indicator Code</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Interchange Usage Indicator Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">T</span>
                             <span>Test data</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(1,105,1,106)" onmouseout="clearAll()">
-                        <div class="left-seg">Component Element Separator</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Component Element Separator</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">:</span>
                             <span></span>
@@ -833,12 +925,14 @@
                 <div class="seg-bottom" onmouseover="onHover(2,1,2,51)" onmouseout="clearAll()"
                     title="To indicate the beginning of a functional group and to provide control information">
                     <i class="material-icons" onclick="setID('s2')">expand_more</i>
-                    <span class="segment" onclick="setID('s2')">GS</span>
+                    <span class="segment gs" onclick="setID('s2')">GS</span>
                     <span class="top-seg">Functional Group Header</span>
                 </div>
                 <div id="s2" class="nodisplay">
                     <div class="child-seg flex-display" onmouseover="onHover(2,4,2,6)" onmouseout="clearAll()">
-                        <div class="left-seg">Functional Identifier Code</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Functional Identifier Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">PO</span>
                             <span>Purchase order 850</span>
@@ -846,12 +940,16 @@
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,6,2,16)" onmouseout="clearAll()">
 
-                        <div class="left-seg">Application Sender's Code</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Application Sender's Code</div>
                         <div class="right-seg"><span class="bold" onmouseover="" onmouseout="">123890123</span></div>
 
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,17,2,26)" onmouseout="clearAll()">
-                        <div class="left-seg">Application Receiver's Code</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Application Receiver's Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">123891123</span>
                             <span></span>
@@ -859,33 +957,43 @@
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,27,2,35)" onmouseout="clearAll()">
 
-                        <div class="left-seg">Date</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                            Date</div>
                         <div class="right-seg">2002-11-06</div>
 
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,36,2,40)" onmouseout="clearAll()">
-                        <div class="left-seg">Time</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z"></path></svg>
+                            Time</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">10:03</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,41,2,42)" onmouseout="clearAll()">
-                        <div class="left-seg">Group Control Number</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Group Control Number</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">7</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,43,2,44)" onmouseout="clearAll()">
-                        <div class="left-seg">Responsible Agency Code</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Responsible Agency Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">T</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,45,2,51)" onmouseout="clearAll()">
-                        <div class="left-seg">Version / Release / Industry Identifier Code</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Version / Release / Industry Identifier Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">004010</span>
                             <span></span>
@@ -906,13 +1014,15 @@
                 1. The transaction set identifier (ST01) used by the translation routines of the interchange partners to select the appropriate transaction set definition (e.g., 810 selects the Invoice Transaction Set).
                             ">
                     <i class="material-icons" onclick="setID('s3')">expand_more</i>
-                    <span class="segment" onclick="setID('s3')">ST</span>
+                    <span class="segment st" onclick="setID('s3')">ST</span>
                     <span class="top-seg">Transaction Set Header</span>
                 </div>
                 <div id="s3" class="nodisplay">
                     <div class="child-seg flex-display" onmouseover="onHover(3,4,3,7)" onmouseout="clearAll()">
                         <div class="left-seg" title="*Required  &#013; &#013; Code uniquely identifying a transacion set
-                        ">Transaction Set Identifier Code</div>
+                        ">
+                        <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                        Transaction Set Identifier Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">850</span>
                             <span>Purchase Order</span>
@@ -922,6 +1032,7 @@
 
                         <div class="left-seg"
                             title="*Required &#013; &#013; Min:4 Max:9 &#013; &#013; Identifying control number that must be unique within the transacion set functional group assigned by the organiser for a transacion set">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M7.784 14l.42-4H4V8h4.415l.525-5h2.011l-.525 5h3.989l.525-5h2.011l-.525 5H20v2h-3.784l-.42 4H20v2h-4.415l-.525 5h-2.011l.525-5H9.585l-.525 5H7.049l.525-5H4v-2h3.784zm2.011 0h3.99l.42-4h-3.99l-.42 4z"></path></svg>
                             Transaction Set Control Number</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">0001</span>
@@ -950,7 +1061,9 @@
                 <div id="s4" class="nodisplay">
                     <div class="child-seg flex-display" onmouseover="onHover(4,5,4,7)" onmouseout="clearAll()">
                         <div class="left-seg"
-                            title="*Required &#013; &#013; Code identifying purpose of transacion set">Transaction Set
+                            title="*Required &#013; &#013; Code identifying purpose of transacion set">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Transaction Set
                             Purpose Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">01</span>
@@ -960,7 +1073,9 @@
                     <div class="child-seg flex-display" onmouseover="onHover(4,8,4,10)" onmouseout="clearAll()">
 
                         <div class="left-seg"
-                            title="*Required &#013; &#013; Code specifying the type of purchase order">Purchase Order
+                            title="*Required &#013; &#013; Code specifying the type of purchase order">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Purchase Order
                             Type Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">BK</span>
@@ -971,6 +1086,7 @@
                     <div class="child-seg flex-display" onmouseover="onHover(4,11,4,24)" onmouseout="clearAll()">
                         <div class="left-seg"
                             title="*Required &#013; &#013; Min:1 Max:22 &#013; &#013; Identifying number of purchase order">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
                             Purchase Order Number</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">99AKDF9DAL393</span>
@@ -981,6 +1097,7 @@
 
                         <div class="left-seg"
                             title="Min:1 Max:30 &#013; &#013; Number identifying a release against a purchase order">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
                             Release Number</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">39483920193843</span>
@@ -990,49 +1107,61 @@
 
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,40,4,48)" onmouseout="clearAll()">
-                        <div class="left-seg">Date</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                            Date</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span>Date expressed as CCYYMMDD</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,49,4,58)" onmouseout="clearAll()">
-                        <div class="left-seg">Contract Number</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M7.784 14l.42-4H4V8h4.415l.525-5h2.011l-.525 5h3.989l.525-5h2.011l-.525 5H20v2h-3.784l-.42 4H20v2h-4.415l-.525 5h-2.011l.525-5H9.585l-.525 5H7.049l.525-5H4v-2h3.784zm2.011 0h3.99l.42-4h-3.99l-.42 4z"></path></svg>
+                            Contract Number</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">AN3920943</span>
-                            <span>Contract Number</span>
+                            <span>
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Contract Number</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,59,4,61)" onmouseout="clearAll()">
-                        <div class="left-seg">Acknowledgment Type</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Acknowledgment Type</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">AC</span>
                             <span>Code specifying the type of acknowledgment</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,62,4,65)" onmouseout="clearAll()">
-                        <div class="left-seg">Invoice Type Code</div>
+                        <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Invoice Type Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">IBM</span>
                             <span>Code defining the method by which invoices are to be processed</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,66,4,68)" onmouseout="clearAll()">
-                        <div class="left-seg">Contract Type Code</div>
+                        <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Contract Type Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">02</span>
                             <span>Code identifying a contract type</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,69,4,71)" onmouseout="clearAll()">
-                        <div class="left-seg">Purchase Category</div>
+                        <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Purchase Category</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">AE</span>
                             <span>Code identifying the broad category of products or services being acquired</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,72,4,74)" onmouseout="clearAll()">
-                        <div class="left-seg">Security Level Code</div>
+                        <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Security Level Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">02</span>
                             <span>Code indicating the level of confidentiality assigned by the sender to the information
@@ -1040,7 +1169,8 @@
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(4,75,4,77)" onmouseout="clearAll()">
-                        <div class="left-seg">Transaction Type Code</div>
+                        <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Transaction Type Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">BA</span>
                             <span>Code specifying the type of transaction</span>
@@ -1083,7 +1213,9 @@
                 </div>
                 <div id="s5" class="nodisplay">
                     <div class="child-seg flex-display" onmouseover="onHover(5,5,5,7)" onmouseout="clearAll()">
-                        <div class="left-seg">Entity Identifier Code</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Entity Identifier Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">AC</span>
                             <span>Code identifying an organizational entity, a physical location, property or an
@@ -1092,7 +1224,8 @@
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,8,5,11)" onmouseout="clearAll()">
 
-                        <div class="left-seg">Currency Code</div>
+                        <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Currency Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">USD</span>
                             <span>Code (Standard ISO) for country in whose currency the charges are specified</span>
@@ -1100,7 +1233,9 @@
 
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,12,5,17)" onmouseout="clearAll()">
-                        <div class="left-seg">Exchange Rate</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M7.784 14l.42-4H4V8h4.415l.525-5h2.011l-.525 5h3.989l.525-5h2.011l-.525 5H20v2h-3.784l-.42 4H20v2h-4.415l-.525 5h-2.011l.525-5H9.585l-.525 5H7.049l.525-5H4v-2h3.784zm2.011 0h3.99l.42-4h-3.99l-.42 4z"></path></svg>
+                            Exchange Rate</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">.2939</span>
                             <span>Value to be used as a multiplier conversion factor to convert monetary value from one
@@ -1109,7 +1244,8 @@
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,18,5,20)" onmouseout="clearAll()">
 
-                        <div class="left-seg">Entity Identifier Code</div>
+                        <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Entity Identifier Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">SE</span>
                             <span>Code identifying an organizational entity, a physical location, property or an
@@ -1118,35 +1254,41 @@
 
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,21,5,24)" onmouseout="clearAll()">
-                        <div class="left-seg">Currency Code</div>
+                        <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Currency Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">USD</span>
                             <span>Code (Standard ISO) for country in whose currency the charges are specified</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,25,5,28)" onmouseout="clearAll()">
-                        <div class="left-seg">Currency Market/Exchange Code</div>
+                        <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Currency Market/Exchange Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">IMF</span>
                             <span>Code identifying the market upon which the currency exchange rate is based</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,29,5,32)" onmouseout="clearAll()">
-                        <div class="left-seg">Date/Time Qualifier</div>
+                        <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Date/Time Qualifier</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">002</span>
                             <span>Code specifying type of date or time, or both date and time</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,33,5,41)" onmouseout="clearAll()">
-                        <div class="left-seg">Date</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>Date</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span>Date expressed as CCYYMMDD</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,42,5,46)" onmouseout="clearAll()">
-                        <div class="left-seg">Time</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z"></path></svg>
+                            Time</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">16:15</span>
                             <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
@@ -1156,21 +1298,26 @@
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,47,5,50)" onmouseout="clearAll()">
-                        <div class="left-seg">Date/Time Qualifier</div>
+                        <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Date/Time Qualifier</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">021</span>
                             <span>Code specifying type of date or time, or both date and time</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,51,5,59)" onmouseout="clearAll()">
-                        <div class="left-seg">Date</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                            Date</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span>Date expressed as CCYYMMDD</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,60,5,64)" onmouseout="clearAll()">
-                        <div class="left-seg">Time</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z"></path></svg>
+                            Time</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">07:18</span>
                             <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
@@ -1180,21 +1327,26 @@
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,65,5,68)" onmouseout="clearAll()">
-                        <div class="left-seg">Date/Time Qualifier</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Date/Time Qualifier</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">038</span>
                             <span>Code specifying type of date or time, or both date and time</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,69,5,77)" onmouseout="clearAll()">
-                        <div class="left-seg">Date</div>
+                        <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                            Date</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span>Date expressed as CCYYMMDD</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,78,5,82)" onmouseout="clearAll()">
-                        <div class="left-seg">Time</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z"></path></svg>
+                            Time</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">19:52</span>
                             <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
@@ -1204,21 +1356,27 @@
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,83,5,86)" onmouseout="clearAll()">
-                        <div class="left-seg">Date/Time Qualifier</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Date/Time Qualifier</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">002</span>
                             <span>Code specifying type of date or time, or both date and time</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,87,5,95)" onmouseout="clearAll()">
-                        <div class="left-seg">Date</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                            Date</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span>Date expressed as CCYYMMDD</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,96,5,100)" onmouseout="clearAll()">
-                        <div class="left-seg">Time</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z"></path></svg>
+                            Time</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">16:15</span>
                             <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
@@ -1228,21 +1386,27 @@
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,101,5,104)" onmouseout="clearAll()">
-                        <div class="left-seg">Date/Time Qualifier</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                            Date/Time Qualifier</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">021</span>
                             <span>Code specifying type of date or time, or both date and time</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,105,5,113)" onmouseout="clearAll()">
-                        <div class="left-seg">Date</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                            Date</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                             <span>Date expressed as CCYYMMDD</span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(5,114,5,118)" onmouseout="clearAll()">
-                        <div class="left-seg">Time</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z"></path></svg>
+                            Time</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">07:18</span>
                             <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
@@ -1276,7 +1440,9 @@
                 </div>
                 <div id="s6" class="nodisplay">
                     <div class="child-seg flex-display" onmouseover="onHover(6,5,6,7)" onmouseout="clearAll()">
-                        <div class="left-seg">Reference Identification Qualifier</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                            Reference Identification Qualifier</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">AB</span>
                             <span>Code qualifying the Reference Identification</span>
@@ -1284,7 +1450,9 @@
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(6,8,6,21)" onmouseout="clearAll()">
 
-                        <div class="left-seg">Reference Identification</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Reference Identification</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">3920394930203</span>
                             <span>Reference information as defined for a particular Transaction Set or as specified by
@@ -1293,14 +1461,16 @@
 
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(6,22,6,37)" onmouseout="clearAll()">
-                        <div class="left-seg">Description</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Description</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">GENERAL PURPOSE</span>
                             <span>A free-form description to clarify the related data elements and their content</span>
                         </div>
                     </div>
                     <div class="child-seg">
-                        <div class="flex-display" onmouseover="onHover(6,38,6,94)" onmouseout="clearAll()">
+                        <div style="background-color: #e0d6ff;" class="flex-display" onmouseover="onHover(6,38,6,94)" onmouseout="clearAll()">
 
                             <div class="left-seg">
                                 <i class="material-icons" onclick="setID('s6_1')">expand_more</i>
@@ -1322,7 +1492,9 @@
                         <div id="s6_1" class="nodisplay">
                             <div class="child-seg flex-display" onmouseover="onHover(6,38,6,40)"
                                 onmouseout="clearAll()">
-                                <div class="left-seg">Reference Identification Qualifier</div>
+                                <div class="left-seg">
+                                    <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                    Reference Identification Qualifier</div>
                                 <div class="right-seg">
                                     <span class="bold" onmouseover="" onmouseout="">BT</span>
                                     <span>Code qualifying the Reference Identification</span>
@@ -1330,7 +1502,10 @@
                             </div>
                             <div class="child-seg flex-display" onmouseover="onHover(6,41,6,70)"
                                 onmouseout="clearAll()">
-                                <div class="left-seg">Reference Identification</div>
+                                <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                                    
+                                    Reference Identification</div>
                                 <div class="right-seg">
                                     <span class="bold" onmouseover="" onmouseout="">12389112300123890123768958473</span>
                                     <span>Reference information as defined for a particular Transaction Set or as
@@ -1340,7 +1515,9 @@
 
                             <div class="child-seg flex-display" onmouseover="onHover(6,71,6,73)"
                                 onmouseout="clearAll()">
-                                <div class="left-seg">Reference Identification Qualifier</div>
+                                <div class="left-seg">
+                                    <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                    Reference Identification Qualifier</div>
                                 <div class="right-seg">
                                     <span class="bold" onmouseover="" onmouseout="">CM</span>
                                     <span>Code qualifying the Reference Identification</span>
@@ -1348,7 +1525,9 @@
                             </div>
                             <div class="child-seg flex-display" onmouseover="onHover(6,74,6,77)"
                                 onmouseout="clearAll()">
-                                <div class="left-seg">Reference Identification Qualifier</div>
+                                <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Reference Identification Qualifier</div>
                                 <div class="right-seg">
                                     <span class="bold" onmouseover="" onmouseout="">500</span>
                                     <span>Code qualifying the Reference Identification</span>
@@ -1356,7 +1535,8 @@
                             </div>
                             <div class="child-seg flex-display" onmouseover="onHover(6,78,6,80)"
                                 onmouseout="clearAll()">
-                                <div class="left-seg">Reference Identification Qualifier</div>
+                                <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                    Reference Identification Qualifier</div>
                                 <div class="right-seg">
                                     <span class="bold" onmouseover="" onmouseout="">AB</span>
                                     <span>Code qualifying the Reference Identification</span>
@@ -1364,7 +1544,8 @@
                             </div>
                             <div class="child-seg flex-display" onmouseover="onHover(6,81,6,94)"
                                 onmouseout="clearAll()">
-                                <div class="left-seg">Reference Identification Qualifier</div>
+                                <div class="left-seg"><svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                    Reference Identification Qualifier</div>
                                 <div class="right-seg">
                                     <span class="bold" onmouseover="" onmouseout="">3920394930203</span>
                                     <span>Code qualifying the Reference Identification</span>
@@ -1554,7 +1735,7 @@
                 7. SAC16 is used to identify the language being used in SAC15.
                               '>
                     <i class="material-icons" onclick="setID('s14')">expand_more</i>
-                    <span class="segment" onclick="setID('s14')">SAC</span>
+                    <span class="segment loop" onclick="setID('s14')">SAC</span>
                     <span class="top-seg"> (Loop) Service, Promotion, Allowance, or Charge Information</span>
                 </div>
 
@@ -1562,8 +1743,8 @@
                     <div class="flex-display" onmouseover="onHover(14,1,14,118)" onmouseout="clearAll()">
 
                         <div class="left-seg">
-                            <i class="material-icons" onclick="setID('s14_1')">expand_more</i>
-                            SAC
+                            <!-- <i class="material-icons" onclick="setID('s14_1')">expand_more</i> -->
+                            <div class="segment loop-c" onclick="setID('s14_1')">SAC</div>
                         </div>
                         <div class="right-seg" onclick="setID('s14_1')">
                             <span class="bold" onmouseover="" onmouseout=""></span>
@@ -1574,16 +1755,20 @@
 
                     </div>
 
-                    <div id="s14_1 nodisplay">
+                    <div id="s14_1" class="nodisplay">
                         <div class="child-seg flex-display" onmouseover="onHover(14,5,14,6)" onmouseout="clearAll()">
-                            <div class="left-seg">Allowance or Charge Indicator</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                Allowance or Charge Indicator</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">A</span>
                                 <span>Allowance</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,7,14,11)" onmouseout="clearAll()">
-                            <div class="left-seg">Service, Promotion, Allowance, or Charge Code</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                Service, Promotion, Allowance, or Charge Code</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">A010</span>
                                 <span>Absolute Minimum Charge</span>
@@ -1591,49 +1776,63 @@
                         </div>
 
                         <div class="child-seg flex-display" onmouseover="onHover(14,12,14,14)" onmouseout="clearAll()">
-                            <div class="left-seg">Agency Qualifier Code</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                Agency Qualifier Code</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">AA</span>
                                 <span>Aluminum Association</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,15,14,16)" onmouseout="clearAll()">
-                            <div class="left-seg">Agency Service, Promotion, Allowance, or Charge Code</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                                Agency Service, Promotion, Allowance, or Charge Code</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">1</span>
                                 <span></span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,17,14,22)" onmouseout="clearAll()">
-                            <div class="left-seg">Amount</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                                Amount</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">50000</span>
                                 <span></span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,23,14,24)" onmouseout="clearAll()">
-                            <div class="left-seg">Allowance/Charge Percent Qualifier</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                Allowance/Charge Percent Qualifier</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">1</span>
                                 <span>1Item List Cost</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,25,14,28)" onmouseout="clearAll()">
-                            <div class="left-seg">Percent</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                                Percent</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">.25</span>
                                 <span></span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,29,14,33)" onmouseout="clearAll()">
-                            <div class="left-seg">Rate</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                                Rate</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">5000</span>
                                 <span></span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(14,29,14,33)" onmouseout="clearAll()">
-                            <div class="left-seg">Unit or Basis for Measurement Code</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                Unit or Basis for Measurement Code</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">HB</span>
                                 <span>Hundred Boxes</span>
@@ -1646,8 +1845,8 @@
                         onmouseout="clearAll()">
 
                         <div class="left-seg">
-                            <i class="material-icons" onclick="setID('s14_2')">expand_more</i>
-                            CUR
+                            <!-- <i class="material-icons" onclick="setID('s14_2')">expand_more</i> -->
+                            <div class="segment loop-c" onclick="setID('s14_2')">CUR</div>
                         </div>
                         <div class="right-seg" onclick="setID('s14_2')">
                             <span class="bold" onmouseover="" onmouseout=""></span>
@@ -1658,10 +1857,12 @@
 
                     </div>
 
-                    <div id="s14_2 nodisplay">
+                    <div id="s14_2" class="nodisplay">
 
                         <div class="child-seg flex-display" onmouseover="onHover(15,5,15,7)" onmouseout="clearAll()">
-                            <div class="left-seg">Entity Identifier Code</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                Entity Identifier Code</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">BK</span>
                                 <span>Code identifying an organizational entity, a physical location, property or an
@@ -1671,7 +1872,9 @@
 
                         <div class="child-seg flex-display" onmouseover="onHover(15,8,15,11)" onmouseout="clearAll()">
 
-                            <div class="left-seg">Currency Code</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                Currency Code</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">USD</span>
                                 <span>Code (Standard ISO) for country in whose currency the charges are specified</span>
@@ -1679,7 +1882,9 @@
 
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,12,15,17)" onmouseout="clearAll()">
-                            <div class="left-seg">Exchange Rate</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                                Exchange Rate</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">1.259</span>
                                 <span>Value to be used as a multiplier conversion factor to convert monetary value from
@@ -1689,7 +1894,9 @@
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,18,15,20)" onmouseout="clearAll()">
 
-                            <div class="left-seg">Entity Identifier Code</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                Entity Identifier Code</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">AC</span>
                                 <span>Code identifying an organizational entity, a physical location, property or an
@@ -1698,35 +1905,45 @@
 
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,21,15,24)" onmouseout="clearAll()">
-                            <div class="left-seg">Currency Code</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                Currency Code</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">USD</span>
                                 <span>Code (Standard ISO) for country in whose currency the charges are specified</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,25,15,28)" onmouseout="clearAll()">
-                            <div class="left-seg">Currency Market/Exchange Code</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12.999V20a1 1 0 0 1-1 1h-8v-8.001h9zm-11 0V21H3a1 1 0 0 1-1-1v-7.001h9zM11 3v7.999H2V4a1 1 0 0 1 1-1h8zm10 0a1 1 0 0 1 1 1v6.999h-9V3h8z"></path></svg>
+                                Currency Market/Exchange Code</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">LNF</span>
                                 <span>Code identifying the market upon which the currency exchange rate is based</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,29,15,32)" onmouseout="clearAll()">
-                            <div class="left-seg">Date/Time Qualifier</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                                Date/Time Qualifier</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">002</span>
                                 <span>Code specifying type of date or time, or both date and time</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,33,15,41)" onmouseout="clearAll()">
-                            <div class="left-seg">Date</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                                Date</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                                 <span>Date expressed as CCYYMMDD</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,42,15,46)" onmouseout="clearAll()">
-                            <div class="left-seg">Time</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z"></path></svg>
+                                Time</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">19:52</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
@@ -1738,21 +1955,27 @@
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,47,15,50)" onmouseout="clearAll()">
-                            <div class="left-seg">Date/Time Qualifier</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                                Date/Time Qualifier</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">002</span>
                                 <span>Code specifying type of date or time, or both date and time</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,51,15,59)" onmouseout="clearAll()">
-                            <div class="left-seg">Date</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                                Date</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                                 <span>Date expressed as CCYYMMDD</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,60,15,64)" onmouseout="clearAll()">
-                            <div class="left-seg">Time</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z"></path></svg>
+                                Time</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">16:15</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
@@ -1764,21 +1987,27 @@
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,65,15,68)" onmouseout="clearAll()">
-                            <div class="left-seg">Date/Time Qualifier</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                                Date/Time Qualifier</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">021</span>
                                 <span>Code specifying type of date or time, or both date and time</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,69,15,77)" onmouseout="clearAll()">
-                            <div class="left-seg">Date</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                                Date</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                                 <span>Date expressed as CCYYMMDD</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,78,15,82)" onmouseout="clearAll()">
-                            <div class="left-seg">Time</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z"></path></svg>
+                                Time</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">07:18</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
@@ -1790,21 +2019,27 @@
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,83,15,86)" onmouseout="clearAll()">
-                            <div class="left-seg">Date/Time Qualifier</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                                Date/Time Qualifier</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">038</span>
                                 <span>Code specifying type of date or time, or both date and time</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,87,15,95)" onmouseout="clearAll()">
-                            <div class="left-seg">Date</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                                Date</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                                 <span>Date expressed as CCYYMMDD</span>
                             </div>
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,96,15,100)" onmouseout="clearAll()">
-                            <div class="left-seg">Time</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z"></path></svg>
+                                Time</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">19:15</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
@@ -1817,7 +2052,9 @@
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,101,15,104)"
                             onmouseout="clearAll()">
-                            <div class="left-seg">Date/Time Qualifier</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                                Date/Time Qualifier</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">021</span>
                                 <span>Code specifying type of date or time, or both date and time</span>
@@ -1825,7 +2062,9 @@
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,105,15,113)"
                             onmouseout="clearAll()">
-                            <div class="left-seg">Date</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                                Date</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">2002-11-06</span>
                                 <span>Date expressed as CCYYMMDD</span>
@@ -1833,7 +2072,9 @@
                         </div>
                         <div class="child-seg flex-display" onmouseover="onHover(15,114,15,118)"
                             onmouseout="clearAll()">
-                            <div class="left-seg">Time</div>
+                            <div class="left-seg">
+                                <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z"></path></svg>
+                                Time</div>
                             <div class="right-seg">
                                 <span class="bold" onmouseover="" onmouseout="">07:18</span>
                                 <span>Time expressed in 24-hour clock time as follows: HHMM, or HHMMSS, or HHMMSSD, or
@@ -2042,7 +2283,9 @@
 
                 <div id="s27" class="nodisplay">
                     <div class="child-seg flex-display" onmouseover="onHover(2,4,2,6)" onmouseout="clearAll()">
-                        <div class="left-seg" style="color: red;">Packaging Code</div>
+                        <div class="left-seg" style="color: red;">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Packaging Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout=""></span>
                             <span>
@@ -2051,12 +2294,16 @@
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,6,2,16)" onmouseout="clearAll()">
 
-                        <div class="left-seg">Application Sender's Code</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Application Sender's Code</div>
                         <div class="right-seg"><span class="bold" onmouseover="" onmouseout="">123890123</span></div>
 
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,17,2,26)" onmouseout="clearAll()">
-                        <div class="left-seg">Application Receiver's Code</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Application Receiver's Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">123891123</span>
                             <span></span>
@@ -2064,33 +2311,43 @@
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,27,2,35)" onmouseout="clearAll()">
 
-                        <div class="left-seg">Date</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M2 11h20v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-9zm15-8h4a1 1 0 0 1 1 1v5H2V4a1 1 0 0 1 1-1h4V1h2v2h6V1h2v2z"></path></svg>
+                            Date</div>
                         <div class="right-seg">2002-11-06</div>
 
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,36,2,40)" onmouseout="clearAll()">
-                        <div class="left-seg">Time</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm1-10V7h-2v7h6v-2h-4z"></path></svg>
+                            Time</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">10:03</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,41,2,42)" onmouseout="clearAll()">
-                        <div class="left-seg">Group Control Number</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Group Control Number</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">7</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,43,2,44)" onmouseout="clearAll()">
-                        <div class="left-seg">Responsible Agency Code</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Responsible Agency Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">T</span>
                             <span></span>
                         </div>
                     </div>
                     <div class="child-seg flex-display" onmouseover="onHover(2,45,2,51)" onmouseout="clearAll()">
-                        <div class="left-seg">Version / Release / Industry Identifier Code</div>
+                        <div class="left-seg">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Version / Release / Industry Identifier Code</div>
                         <div class="right-seg">
                             <span class="bold" onmouseover="" onmouseout="">004010</span>
                             <span></span>
@@ -2209,6 +2466,153 @@
                     <span class="segment">TXI</span>
                     <span class="top-seg">
                         Tax Information</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(195,1,195,130)" onmouseout="clearAll()" title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">LQ</span>
+                    <span class="top-seg">
+                        Industry code</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(196,1,196,130)" onmouseout="clearAll()" title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">CTT</span>
+                    <span class="top-seg">
+                        Transaction totals</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(197,1,197,130)" onmouseout="clearAll()" title="
+                To identify a person or office to whom administrative communications should be directed
+                
+                Syntax Notes:
+                1. P0304 Paired Multiple
+                2. P0506 Paired Multiple
+                3. P0708 Paired Multiple
+                              ">
+                    <i class="material-icons" onclick="setID('s5')">expand_more</i>
+                    <span class="segment">AMT</span>
+                    <span class="top-seg">
+                        monetary amount</span>
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(198,1,198,20)" onmouseout="clearAll()"
+                    title="
+                To indicate the end of a transaction set and provide the count of transmitted segments including the beginning and ending">
+                    <i class="material-icons" onclick="setID('s198')">expand_more</i>
+                    <span class="segment st" onclick="setID('s198')">SE</span>
+                    <span class="top-seg">Transaction Set Trailer</span>
+                </div>
+                <div id="s198" class="nodisplay">
+                    <div class="child-seg flex-display" onmouseover="onHover(198,4,198,7)" onmouseout="clearAll()">
+                        <div class="left-seg" title="*Required  &#013; &#013; Code uniquely identifying a transacion set
+                        ">
+                        <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M7.784 14l.42-4H4V8h4.415l.525-5h2.011l-.525 5h3.989l.525-5h2.011l-.525 5H20v2h-3.784l-.42 4H20v2h-4.415l-.525 5h-2.011l.525-5H9.585l-.525 5H7.049l.525-5H4v-2h3.784zm2.011 0h3.99l.42-4h-3.99l-.42 4z"></path></svg>
+                        
+                        Number of Included Segments</div>
+                        <div class="right-seg">
+                            <span class="bold" onmouseover="" onmouseout="">196</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(198,8,198,12)" onmouseout="clearAll()">
+
+                        <div class="left-seg"
+                            title="*Required &#013; &#013; Min:4 Max:9 &#013; &#013; Identifying control number that must be unique within the transacion set functional group assigned by the organiser for a transacion set">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M7.784 14l.42-4H4V8h4.415l.525-5h2.011l-.525 5h3.989l.525-5h2.011l-.525 5H20v2h-3.784l-.42 4H20v2h-4.415l-.525 5h-2.011l.525-5H9.585l-.525 5H7.049l.525-5H4v-2h3.784zm2.011 0h3.99l.42-4h-3.99l-.42 4z"></path></svg>
+                            Transaction Set Control Number</div>
+                        <div class="right-seg">
+                            <span class="bold" onmouseover="" onmouseout="">1</span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(199,1,199,20)" onmouseout="clearAll()" title="
+                To indicate the end of a functional group and to provide control information">
+                    <i class="material-icons" onclick="setID('s199')">expand_more</i>
+                    <span class="segment gs" onclick="setID('s199')">GE</span>
+                    <span class="top-seg">Functional Trailer</span>
+                </div>
+                <div id="s199" class="nodisplay">
+                    <div class="child-seg flex-display" onmouseover="onHover(199,4,199,5)" onmouseout="clearAll()">
+                        <div class="left-seg" title="*Required  &#013; &#013; Code uniquely identifying a transacion set
+                        ">
+                        <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                        Number of Transaction Sets Included</div>
+                        <div class="right-seg">
+                            <span class="bold" onmouseover="" onmouseout="">1</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(199,6,199,7)" onmouseout="clearAll()">
+
+                        <div class="left-seg"
+                            title="*Required &#013; &#013; Min:4 Max:9 &#013; &#013; Identifying control number that must be unique within the transacion set functional group assigned by the organiser for a transacion set">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Group Control Number</div>
+                        <div class="right-seg">
+                            <span class="bold" onmouseover="" onmouseout="">000000007</span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <div class="seg-bottom" onmouseover="onHover(200,1,200,20)" onmouseout="clearAll()"
+                    title="
+                To define the end of an interchange of zero or more functional groups and interchange related control segments">
+                    <i class="material-icons" onclick="setID('s200')">expand_more</i>
+                    <span class="segment isa" onclick="setID('s200')">IEA</span>
+                    <span class="top-seg">Interchange control trailer</span>
+                </div>
+                <div id="s200" class="nodisplay">
+                    <div class="child-seg flex-display" onmouseover="onHover(200,5,200,6)" onmouseout="clearAll()">
+                        <div class="left-seg" title="*Required  &#013; &#013; Code uniquely identifying a transacion set
+                        ">
+                        <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                        Number of Included Functional Groups</div>
+                        <div class="right-seg">
+                            <span class="bold" onmouseover="" onmouseout="">1</span>
+                        </div>
+                    </div>
+                    <div class="child-seg flex-display" onmouseover="onHover(200,7,200,16)" onmouseout="clearAll()">
+
+                        <div class="left-seg"
+                            title="*Required &#013; &#013; Min:4 Max:9 &#013; &#013; Identifying control number that must be unique within the transacion set functional group assigned by the organiser for a transacion set">
+                            <svg class="remixicon-icon " width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M17 8H7v2h4v7h2v-7h4V8zM4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path></svg>
+                            Interchange Control Number</div>
+                        <div class="right-seg">
+                            <span class="bold" onmouseover="" onmouseout="">000000009</span>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
 
