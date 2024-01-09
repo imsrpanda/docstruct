@@ -795,6 +795,10 @@
             document.getElementById('error-num').innerHTML = '<b style="font-weight:600;font-size:14px">' + (this.errorIndex + 1) + '</b> of <b style="font-weight:600;font-size:14px">4</b>';
         }
 
+        function gotoError(i) {
+            editor.revealLine(this.errors[i][0]);
+        }
+
 
     </script>
     <meta charset="UTF-8">
@@ -814,10 +818,10 @@
                 onclick="prevError()">expand_less</i></span>
         <span id="error-num"></span>
         <div class="list-error nodisplay" id="err">
-            <li>Element TD1-01 must equal one of 203 values; value found was 'BAG07'</li>
-            <li>Element TD1-01 must equal one of 203 values; value found was 'BBL94'</li>
-            <li>Element PO4-04 must equal one of 203 values; value found was 'PLT37'</li>
-            <li>Element TD1-01 must equal one of 203 values; value found was 'BAG07'</li>
+            <li onclick="gotoError(0)">Element TD1-01 must equal one of 203 values; value found was 'BAG07'</li>
+            <li onclick="gotoError(1)">Element TD1-01 must equal one of 203 values; value found was 'BBL94'</li>
+            <li onclick="gotoError(2)">Element PO4-04 must equal one of 203 values; value found was 'PLT37'</li>
+            <li onclick="gotoError(3)">Element TD1-01 must equal one of 203 values; value found was 'BAG07'</li>
         </div>
     </div>
     <div style="display: flex;">
